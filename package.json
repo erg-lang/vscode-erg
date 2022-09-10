@@ -1,14 +1,20 @@
 {
-  "name": "erg",
-  "displayName": "Erg",
+  "name": "vscode-erg",
+  "displayName": "vscode-erg",
   "description": "Erg language support for Visual Studio Code",
-  "version": "0.0.1",
+  "publisher": "erg-lang",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.70.0"
   },
   "categories": [
     "Programming Languages"
   ],
+  "icon": "images/icon.jpg",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/erg-lang/vscode-erg.git"
+	},
   "contributes": {
     "languages": [{
       "id": "erg",

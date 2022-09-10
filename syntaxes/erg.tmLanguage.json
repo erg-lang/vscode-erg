@@ -37,6 +37,21 @@
 		},
 		{
 			"include": "#symbol"
+		},
+		{
+			"include": "#procedural"
+		},
+		{
+			"include": "#builtin-functions"
+		},
+		{
+			"include": "#builtin-types"
+		},
+		{
+			"include": "#builtin-exceptions"
+		},
+		{
+			"include": "#special-variables"
 		}
 	],
 	"repository": {
@@ -250,28 +265,8 @@
 					]
 				},
 				{
-					"match": "\\b(?<![:_])(?:if|else|elseif|while|begin|let|do|try|catch|finally|return|break|continue|assert|pyimport)\\b",
-					"name": "keyword.control.erg"
-				},
-				{
-					"match": "\\b(?<![:_])end\\b",
-					"name": "keyword.control.end.erg"
-				},
-				{
-					"match": "\\b(?<![:_])(?:global|local|const)\\b",
-					"name": "keyword.storage.modifier.erg"
-				},
-				{
-					"match": "\\b(?<![:_])(?:export)\\b",
-					"name": "keyword.control.export.erg"
-				},
-				{
 					"match": "\\b(?<![:_])(?:import)\\b",
 					"name": "keyword.control.import.erg"
-				},
-				{
-					"match": "\\b(?<![:_])(?:using)\\b",
-					"name": "keyword.control.using.erg"
 				},
 				{
 					"match": "(@(\\.|(?:[[:alpha:]_\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}⅀-⅄∿⊾⊿⊤⊥∂∅-∇∎∏∐∑∞∟∫-∳⋀-⋃◸-◿♯⟘⟙⟀⟁⦰-⦴⨀-⨆⨉-⨖⨛⨜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃ⁱ-⁾₁-₎∠-∢⦛-⦯℘℮゛-゜𝟎-𝟡]|[^\\P{So}←-⇿])(?:[[:word:]_!\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}⅀-⅄∿⊾⊿⊤⊥∂∅-∇∎∏∐∑∞∟∫-∳⋀-⋃◸-◿♯⟘⟙⟀⟁⦰-⦴⨀-⨆⨉-⨖⨛⨜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃ⁱ-⁾₁-₎∠-∢⦛-⦯℘℮゛-゜𝟎-𝟡]|[^\\P{Mn}\u0001-¡]|[^\\P{Mc}\u0001-¡]|[^\\P{Nd}\u0001-¡]|[^\\P{Pc}\u0001-¡]|[^\\P{Sk}\u0001-¡]|[^\\P{Me}\u0001-¡]|[^\\P{No}\u0001-¡]|[′-‷⁗]|[^\\P{So}←-⇿])*))",
@@ -305,15 +300,23 @@
 		"operator": {
 			"patterns": [
 				{
-					"match": "(?:->|<-|-->|=>)",
+					"match": "(?:->|=>)",
 					"name": "keyword.operator.arrow.erg"
 				},
 				{
-					"match": "(?::=|\\+=|-=|\\*=|//=|/=|\\.//=|\\./=|\\.\\*=|\\\\=|\\.\\\\=|\\^=|\\.\\^=|%=|\\.%=|÷=|\\.÷=|\\|=|&=|\\.&=|⊻=|\\.⊻=|\\$=|<<=|>>=|>>>=|=(?!=))",
+					"match": "(?:::)",
+					"name": "keyword.operator.private.erg"
+				},
+				{
+					"match": "(?:\\.)",
+					"name": "keyword.operator.public.erg"
+				},
+				{
+					"match": "(?::=)",
 					"name": "keyword.operator.update.erg"
 				},
 				{
-					"match": "(?:<<|>>>|>>|\\.>>>|\\.>>|\\.<<)",
+					"match": "(?:<<|>>)",
 					"name": "keyword.operator.shift.erg"
 				},
 				{
@@ -360,24 +363,12 @@
 					"name": "keyword.operator.arithmetic.erg"
 				},
 				{
-					"match": "(?:∘)",
-					"name": "keyword.operator.compose.erg"
-				},
-				{
-					"match": "(?:::|(?<=\\s)isa(?=\\s))",
-					"name": "keyword.operator.isa.erg"
-				},
-				{
 					"match": "(?:(?<=\\s)in(?=\\s))",
 					"name": "keyword.operator.relation.in.erg"
 				},
 				{
 					"match": "(?:\\.(?=(?:@|_|\\p{L}))|\\.\\.+)",
 					"name": "keyword.operator.dots.erg"
-				},
-				{
-					"match": "(?:\\$)(?=.+)",
-					"name": "keyword.operator.interpolation.erg"
 				},
 				{
 					"captures": {
@@ -911,6 +902,22 @@
 				}
 			]
 		},
+		"procedural": {
+            "patterns": [
+                {
+                    "name": "constant.other.procedural.erg",
+                    "match": "(([a-z_][A-Za-z0-9_]*!)|([A-Z_][A-Za-z0-9_]*!))",
+                    "captures": {
+                        "2": {
+                            "name": "entity.name.function.procedural.erg"
+                        },
+                        "3": {
+                            "name": "entity.name.type.procedural.erg"
+                        }
+                    }
+                }
+            ]
+        },
 		"type_decl": {
 			"patterns": [
 				{
@@ -929,7 +936,38 @@
 					"name": "meta.type.erg"
 				}
 			]
-		}
+		},
+		"special-variables": {
+            "match": "(?x)\n  \\b (?<!\\.) (?:\n    (self) | (cls)\n  )\\b\n",
+            "captures": {
+                "1": {
+                    "name": "variable.language.special.self.python"
+                },
+                "2": {
+                    "name": "variable.language.special.cls.python"
+                }
+            }
+        },
+		"builtin-exceptions": {
+            "name": "support.type.exception.erg",
+            "match": "(?x) (?<!\\.) \\b(\n  (\n    Arithmetic | Assertion | Attribute | Buffer | BlockingIO\n    | BrokenPipe | ChildProcess\n    | (Connection (Aborted | Refused | Reset)?)\n    | EOF | Environment | FileExists | FileNotFound\n    | FloatingPoint | IO | Import | Indentation | Index | Interrupted\n    | IsADirectory | NotADirectory | Permission | ProcessLookup\n    | Timeout\n    | Key | Lookup | Memory | Name | NotImplemented | OS | Overflow\n    | Reference | Runtime | Recursion | Syntax | System\n    | Tab | Type | UnboundLocal | Unicode(Encode|Decode|Translate)?\n    | Value | Windows | ZeroDivision | ModuleNotFound\n  ) Error\n|\n  ((Pending)?Deprecation | Runtime | Syntax | User | Future | Import\n    | Unicode | Bytes | Resource\n  )? Warning\n|\n  SystemExit | Stop(Async)?Iteration\n  | KeyboardInterrupt\n  | GeneratorExit | (Base)?Exception\n)\\b\n"
+        },
+        "builtin-functions": {
+            "patterns": [
+                {
+                    "name": "support.function.builtin.erg",
+                    "match": "(?x)\n  (?<!\\.) \\b(\n    __import__ | abs | all | any | ascii | assert | bin | breakpoint | callable\n    | chr | compile | copyright | credits | delattr | dir | divmod\n    | enumerate | eval | exec | exit | filter | format | getattr\n    | globals | hasattr | hash | help | hex | id | import\n    | isinstance | issubclass | iter | len | license | locals | log | map\n    | max | memoryview | min | next | oct | open | ord | pow | pyimport\n    | quit | range | reload | repr | reversed | round\n    | setattr | sorted | sum | vars | zip | Class | Trait | Inheritable | Inherit | Structural\n  )\\b\n"
+                },
+                {
+                    "name": "variable.legacy.builtin.erg",
+                    "match": "(?x)\n  (?<!\\.) \\b(\n    file | reduce | intern | raw_input | unicode | cmp | basestring\n    | execfile | long | xrange\n  )\\b\n"
+                }
+            ]
+        },
+		"builtin-types": {
+            "name": "support.type.erg",
+            "match": "(?x)\n  (?<!\\.) \\b(\n   Array | Bool | ByteArray | Bytes | ClassMethod | Complex | Dict\n    | Float | FrozenSet | Int | Object | Property\n    | Set | Slice | StaticMethod | Str | Tuple | Type\n\n    (?# Although 'super' is not a type, it's related to types,\n        and is special enough to be highlighted differently from\n        other built-ins)\n    | super\n  )\\b\n"
+        }
 	},
 	"scopeName": "source.erg"
 }
