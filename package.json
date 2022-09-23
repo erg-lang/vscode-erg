@@ -3,7 +3,7 @@
   "displayName": "vscode-erg",
   "description": "Erg language support for Visual Studio Code",
   "publisher": "erg-lang",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "engines": {
     "vscode": "^1.70.0"
   },
@@ -11,21 +11,37 @@
     "Programming Languages"
   ],
   "icon": "images/icon.jpg",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/erg-lang/vscode-erg.git"
-	},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/erg-lang/vscode-erg.git"
+  },
+  "main": "./extension.js",
+  "activationEvents": [
+    "onLanguage:erg"
+  ],
   "contributes": {
-    "languages": [{
-      "id": "erg",
-      "aliases": ["Erg", "erg"],
-      "extensions": [".er"],
-      "configuration": "./language-configuration.json"
-    }],
-    "grammars": [{
-      "language": "erg",
-      "scopeName": "source.erg",
-      "path": "./syntaxes/erg.tmLanguage.json"
-    }]
+    "languages": [
+      {
+        "id": "erg",
+        "aliases": [
+          "Erg",
+          "erg"
+        ],
+        "extensions": [
+          ".er"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "erg",
+        "scopeName": "source.erg",
+        "path": "./syntaxes/erg.tmLanguage.json"
+      }
+    ]
+  },
+  "dependencies": {
+    "vscode-languageclient": "^7.0.0"
   }
 }

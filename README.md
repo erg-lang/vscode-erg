@@ -1,5 +1,3 @@
 # Erg language support for Visual Studio Code
 
-__Warning__: The plugin is in a very early stage. Very few functions are available.
-
-The initial version is a small part fork of https://github.com/julia-vscode/julia-vscode (has started to rewritten)
+This extension provides syntax highlighting and basic supports (diagnostics & code completion) for the [Erg](https://github.com/erg-lang/erg) programming language.

@@ -3,8 +3,8 @@
 - [x] Highlighting basic syntax
 - [x] Highlighting build functions & types
 - [ ] Highlighting builtin procedures
-- [ ] Display compiler checks
-- [ ] Code completion
+- [x] Display compiler checks
+- [x] Code completion (basic)
 - [ ] Hovering
 - [ ] Jump to definition
 - [ ] Find references
