@@ -148,13 +148,13 @@
 		"comment_block": {
 			"patterns": [
 				{
-					"begin": "#=",
+					"begin": "#\\[",
 					"beginCaptures": {
 						"0": {
 							"name": "punctuation.definition.comment.begin.erg"
 						}
 					},
-					"end": "=#",
+					"end": "\\]#",
 					"endCaptures": {
 						"0": {
 							"name": "punctuation.definition.comment.end.erg"
@@ -292,7 +292,7 @@
 					"name": "constant.global.erg"
 				},
 				{
-					"match": "\\btrue\\b|\\bfalse\\b|\\bnothing\\b|\\bmissing\\b",
+					"match": "\\bTrue\\b|\\bFalse\\b|\\bNone\\b|\\bNotImplemented\\b|\\bEllipsis\\b",
 					"name": "constant.language.erg"
 				}
 			]
@@ -359,12 +359,12 @@
 					"name": "keyword.operator.bitwise.erg"
 				},
 				{
-					"match": "(?:\\+\\+|--|\\+|\\.\\+|-|\\.\\-|\\*|\\.\\*|//(?!=)|\\.//(?!=)|/|\\./|%|\\.%|\\\\|\\.\\\\|\\^|\\.\\^|÷|\\.÷|⋅|\\.⋅|∩|\\.∩|∪|\\.∪|×|√|∛)",
+					"match": "(?:\\+\\+|\\+|\\.\\+|-|\\.\\-|\\*|\\.\\*|//(?!=)|\\.//(?!=)|/|\\./|%|\\.%)",
 					"name": "keyword.operator.arithmetic.erg"
 				},
 				{
-					"match": "(?:(?<=\\s)in(?=\\s))",
-					"name": "keyword.operator.relation.in.erg"
+					"match": "(?:(?<=\\s)in|and|or|not(?=\\s))",
+					"name": "keyword.operator.relation.erg"
 				},
 				{
 					"match": "(?:\\.(?=(?:@|_|\\p{L}))|\\.\\.+)",
@@ -966,7 +966,7 @@
         },
 		"builtin-types": {
             "name": "support.type.erg",
-            "match": "(?x)\n  (?<!\\.) \\b(\n   Array | Bool | ByteArray | Bytes | ClassMethod | Complex | Dict\n    | Float | FrozenSet | Int | Object | Property\n    | Set | Slice | StaticMethod | Str | Tuple | Type\n\n    (?# Although 'super' is not a type, it's related to types,\n        and is special enough to be highlighted differently from\n        other built-ins)\n    | super\n  )\\b\n"
+            "match": "(?x)\n  (?<!\\.) \\b(\n   Array | Bool | ByteArray | Bytes | ClassType | ClassMethod | Complex | Dict\n    | Float | FrozenSet | Int | Object | Property\n    | Set | Slice | StaticMethod | Str | Tuple | TraitType | Type\n\n    (?# Although 'super' is not a type, it's related to types,\n        and is special enough to be highlighted differently from\n        other built-ins)\n    | super\n  )\\b\n"
         }
 	},
 	"scopeName": "source.erg"
