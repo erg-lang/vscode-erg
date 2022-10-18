@@ -956,7 +956,7 @@
             "patterns": [
                 {
                     "name": "support.function.builtin.erg",
-                    "match": "(?x)\n  (?<!\\.) \\b(\n    __import__ | abs | all | any | ascii | assert | bin | breakpoint | callable\n    | chr | compile | copyright | credits | delattr | dir | discard | divmod\n    | enumerate | eval | exec | exit | filter | format | getattr\n    | globals | hasattr | hash | help | hex | id | import\n    | isinstance | issubclass | iter | len | license | locals | log | map\n    | max | memoryview | min | next | oct | open | ord | pow | pyimport\n    | quit | range | reload | repr | reversed | round\n    | setattr | sorted | sum | vars | zip | Class | Trait | Inheritable | Inherit | Structural\n  )\\b\n"
+                    "match": "(?x)\n  (?<!\\.) \\b(\n    __import__ | abs | all | any | ascii | assert | bin | breakpoint | callable\n    | chr | compile | copyright | credits | delattr | dir | discard | divmod\n    | enumerate | eval | exec | exit | filter | format | getattr\n    | globals | hasattr | hash | help | hex | id | import\n    | isinstance | issubclass | iter | len | license | locals | log | map\n    | max | memoryview | min | next | oct | open | ord | pow | pyimport\n    | quit | range | reload | repr | reversed | round\n    | setattr | sorted | sum | vars | zip | Class | Trait | Inheritable | Inherit | Patch | Structural | Subsume\n  )\\b\n"
                 },
                 {
                     "name": "variable.legacy.builtin.erg",
@@ -966,7 +966,7 @@
         },
 		"builtin-types": {
             "name": "support.type.erg",
-            "match": "(?x)\n  (?<!\\.) \\b(\n   Array | Bool | ByteArray | Bytes | ClassType | ClassMethod | Complex | Dict\n    | Float | FrozenSet | Int | Object | Property\n    | Set | Slice | StaticMethod | Str | Tuple | TraitType | Type\n\n    (?# Although 'super' is not a type, it's related to types,\n        and is special enough to be highlighted differently from\n        other built-ins)\n    | super\n  )\\b\n"
+            "match": "(?x)\n  (?<!\\.) \\b(\n   Array | Bool | ByteArray | Bytes | ClassType | ClassMethod | Complex | Dict\n    | Float | FrozenSet | Int | Nat | NoneType | Object | Property | Ratio\n    | Set | Slice | StaticMethod | Str | Tuple | TraitType | Type\n\n    (?# Although 'super' is not a type, it's related to types,\n        and is special enough to be highlighted differently from\n        other built-ins)\n    | super\n  )\\b\n"
         }
 	},
 	"scopeName": "source.erg"
