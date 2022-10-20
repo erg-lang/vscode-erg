@@ -966,7 +966,7 @@
         },
 		"builtin-types": {
             "name": "support.type.erg",
-            "match": "(?x)\n  (?<!\\.) \\b(\n   Array | Bool | ByteArray | Bytes | ClassType | ClassMethod | Complex | Dict\n    | Float | FrozenSet | Int | Nat | NoneType | Object | Property | Ratio\n    | Set | Slice | StaticMethod | Str | Tuple | TraitType | Type\n\n    (?# Although 'super' is not a type, it's related to types,\n        and is special enough to be highlighted differently from\n        other built-ins)\n    | super\n  )\\b\n"
+            "match": "(?x)\n  (?<!\\.) \\b(\n   Array | Bool | ByteArray | Bytes | ClassType | ClassMethod | Complex | Dict\n    | Float | FrozenSet | Int | Nat | Never | NoneType | Object | Property | Ratio\n    | Set | Slice | StaticMethod | Str | Tuple | TraitType | Type\n\n    (?# Although 'super' is not a type, it's related to types,\n        and is special enough to be highlighted differently from\n        other built-ins)\n    | super\n  )\\b\n"
         }
 	},
 	"scopeName": "source.erg"
