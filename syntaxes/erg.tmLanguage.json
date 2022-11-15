@@ -367,6 +367,14 @@
 					"name": "keyword.operator.relation.erg"
 				},
 				{
+					"match": "(?: cross | dot )",
+					"name": "keyword.operator.vector.erg"
+				},
+				{
+					"match": "(?: is | isnot | in | notin )",
+					"name": "keyword.operator.other.erg"
+				},
+				{
 					"match": "(?:\\.(?=(?:@|_|\\p{L}))|\\.\\.+)",
 					"name": "keyword.operator.dots.erg"
 				},
@@ -956,7 +964,7 @@
             "patterns": [
                 {
                     "name": "support.function.builtin.erg",
-                    "match": "(?x)\n  (?<!\\.) \\b(\n    __import__ | abs | all | any | ascii | assert | bin | breakpoint | callable\n    | chr | compile | copyright | credits | delattr | dir | discard | divmod\n    | enumerate | eval | exec | exit | filter | format | getattr\n    | globals | hasattr | hash | help | hex | id | import\n    | isinstance | issubclass | iter | len | license | locals | log | map\n    | max | memoryview | min | next | oct | open | ord | pow | pyimport\n    | quit | range | reload | repr | reversed | round\n    | setattr | sorted | sum | vars | zip | Class | Trait | Inheritable | Inherit | Patch | Structural | Subsume\n  )\\b\n"
+                    "match": "(?x)\n  (?<!\\.) \\b(\n    __import__ | abs | all | any | ascii | assert | bin | breakpoint | callable\n    | chr | compile | copyright | credits | delattr | dir | discard | divmod\n    | enumerate | eval | exec | exit | filter | format | getattr\n    | globals | hasattr | hash | help | hex | id | import\n    | isinstance | issubclass | iter | len | license | locals | log | map\n    | max | memoryview | min | next | not | oct | open | ord | pow | pyimport\n    | quit | range | reload | repr | reversed | round\n    | setattr | sorted | sum | vars | zip | Class | Trait | Inheritable | Inherit | Patch | Structural | Subsume\n  )\\b\n"
                 },
                 {
                     "name": "variable.legacy.builtin.erg",
