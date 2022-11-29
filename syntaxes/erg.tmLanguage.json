@@ -39,6 +39,9 @@
 			"include": "#symbol"
 		},
 		{
+			"include": "#special-variables-do"
+		},
+		{
 			"include": "#procedural"
 		},
 		{
@@ -75,14 +78,6 @@
 					},
 					"name": "meta.array.erg",
 					"patterns": [
-						{
-							"match": "\\bbegin\\b",
-							"name": "constant.numeric.erg"
-						},
-						{
-							"match": "\\bend\\b",
-							"name": "constant.numeric.erg"
-						},
 						{
 							"match": "\\bfor\\b",
 							"name": "keyword.control.erg"
@@ -169,6 +164,87 @@
 				}
 			]
 		},
+		"interpolated": {
+			"patterns": [
+				{
+					"begin": "\\{",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.section.embedded.begin.erg"
+						}
+					},
+					"contentName": "source.erg",
+					"end": "(\\})",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.section.embedded.end.erg"
+						},
+						"1": {
+							"name": "source.erg"
+						}
+					},
+					"name": "meta.embedded.line.erg",
+					"patterns": [
+						{
+							"include": "#nest_curly_and_self"
+						},
+						{
+							"include": "$self"
+						}
+					],
+					"repository": {
+						"nest_curly_and_self": {
+							"patterns": [
+								{
+									"begin": "\\{",
+									"captures": {
+										"0": {
+											"name": "punctuation.section.scope.erg"
+										}
+									},
+									"end": "\\}",
+									"patterns": [
+										{
+											"include": "#nest_curly_and_self"
+										}
+									]
+								},
+								{
+									"include": "$self"
+								}
+							]
+						}
+					}
+				},
+				{
+					"captures": {
+						"1": {
+							"name": "punctuation.definition.variable.erg"
+						}
+					},
+					"match": "(#@)[a-zA-Z_]\\w*",
+					"name": "variable.other.readwrite.instance.erg"
+				},
+				{
+					"captures": {
+						"1": {
+							"name": "punctuation.definition.variable.erg"
+						}
+					},
+					"match": "(#@@)[a-zA-Z_]\\w*",
+					"name": "variable.other.readwrite.class.erg"
+				},
+				{
+					"captures": {
+						"1": {
+							"name": "punctuation.definition.variable.erg"
+						}
+					},
+					"match": "(#\\$)[a-zA-Z_]\\w*",
+					"name": "variable.other.readwrite.global.erg"
+				}
+			]
+		},
 		"function_call": {
 			"patterns": [
 				{
@@ -236,41 +312,6 @@
 					},
 					"match": "\\b(function|macro)(?:\\s+(?:(?:[[:alpha:]_\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}⅀-⅄∿⊾⊿⊤⊥∂∅-∇∎∏∐∑∞∟∫-∳⋀-⋃◸-◿♯⟘⟙⟀⟁⦰-⦴⨀-⨆⨉-⨖⨛⨜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃ⁱ-⁾₁-₎∠-∢⦛-⦯℘℮゛-゜𝟎-𝟡]|[^\\P{So}←-⇿])(?:[[:word:]_!\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}⅀-⅄∿⊾⊿⊤⊥∂∅-∇∎∏∐∑∞∟∫-∳⋀-⋃◸-◿♯⟘⟙⟀⟁⦰-⦴⨀-⨆⨉-⨖⨛⨜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃ⁱ-⁾₁-₎∠-∢⦛-⦯℘℮゛-゜𝟎-𝟡]|[^\\P{Mn}\u0001-¡]|[^\\P{Mc}\u0001-¡]|[^\\P{Nd}\u0001-¡]|[^\\P{Pc}\u0001-¡]|[^\\P{Sk}\u0001-¡]|[^\\P{Me}\u0001-¡]|[^\\P{No}\u0001-¡]|[′-‷⁗]|[^\\P{So}←-⇿])*(\\.))?((?:[[:alpha:]_\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}⅀-⅄∿⊾⊿⊤⊥∂∅-∇∎∏∐∑∞∟∫-∳⋀-⋃◸-◿♯⟘⟙⟀⟁⦰-⦴⨀-⨆⨉-⨖⨛⨜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃ⁱ-⁾₁-₎∠-∢⦛-⦯℘℮゛-゜𝟎-𝟡]|[^\\P{So}←-⇿])(?:[[:word:]_!\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}⅀-⅄∿⊾⊿⊤⊥∂∅-∇∎∏∐∑∞∟∫-∳⋀-⋃◸-◿♯⟘⟙⟀⟁⦰-⦴⨀-⨆⨉-⨖⨛⨜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃ⁱ-⁾₁-₎∠-∢⦛-⦯℘℮゛-゜𝟎-𝟡]|[^\\P{Mn}\u0001-¡]|[^\\P{Mc}\u0001-¡]|[^\\P{Nd}\u0001-¡]|[^\\P{Pc}\u0001-¡]|[^\\P{Sk}\u0001-¡]|[^\\P{Me}\u0001-¡]|[^\\P{No}\u0001-¡]|[′-‷⁗]|[^\\P{So}←-⇿])*)({(?:[^{}]|{(?:[^{}]|{[^{}]*})*})*})?|\\s*)(?=\\()",
 					"comment": "similar regex to previous, but with keyword not 1-line syntax"
-				}
-			]
-		},
-		"keyword": {
-			"patterns": [
-				{
-					"match": "\\b(?<![:_\\.])(?:function|mutable\\s+struct|struct|macro|quote|abstract\\s+type|primitive\\s+type|module|baremodule|where)\\b",
-					"name": "keyword.other.erg"
-				},
-				{
-					"comment": "special case for blocks to support tokenizing outer properly",
-					"begin": "\\b(for)\\b",
-					"beginCaptures": {
-						"0": {
-							"name": "keyword.control.erg"
-						}
-					},
-					"end": "(?<!,|\\s)(\\s*\\n)",
-					"patterns": [
-						{
-							"match": "\\bouter\\b",
-							"name": "keyword.other.erg"
-						},
-						{
-							"include": "$self"
-						}
-					]
-				},
-				{
-					"match": "\\b(?<![:_])(?:import)\\b",
-					"name": "keyword.control.import.erg"
-				},
-				{
-					"match": "(@(\\.|(?:[[:alpha:]_\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}⅀-⅄∿⊾⊿⊤⊥∂∅-∇∎∏∐∑∞∟∫-∳⋀-⋃◸-◿♯⟘⟙⟀⟁⦰-⦴⨀-⨆⨉-⨖⨛⨜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃ⁱ-⁾₁-₎∠-∢⦛-⦯℘℮゛-゜𝟎-𝟡]|[^\\P{So}←-⇿])(?:[[:word:]_!\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}⅀-⅄∿⊾⊿⊤⊥∂∅-∇∎∏∐∑∞∟∫-∳⋀-⋃◸-◿♯⟘⟙⟀⟁⦰-⦴⨀-⨆⨉-⨖⨛⨜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃ⁱ-⁾₁-₎∠-∢⦛-⦯℘℮゛-゜𝟎-𝟡]|[^\\P{Mn}\u0001-¡]|[^\\P{Mc}\u0001-¡]|[^\\P{Nd}\u0001-¡]|[^\\P{Pc}\u0001-¡]|[^\\P{Sk}\u0001-¡]|[^\\P{Me}\u0001-¡]|[^\\P{No}\u0001-¡]|[′-‷⁗]|[^\\P{So}←-⇿])*))",
-					"name": "support.function.macro.erg"
 				}
 			]
 		},
@@ -437,7 +478,7 @@
 							"include": "#string_escaped_char"
 						},
 						{
-							"include": "#string_dollar_sign_interpolate"
+							"include": "#interpolated"
 						}
 					]
 				},
@@ -462,9 +503,6 @@
 					"patterns": [
 						{
 							"include": "source.cpp#root_context"
-						},
-						{
-							"include": "#string_dollar_sign_interpolate"
 						}
 					]
 				},
@@ -489,138 +527,8 @@
 					"patterns": [
 						{
 							"include": "source.python"
-						},
-						{
-							"include": "#string_dollar_sign_interpolate"
 						}
 					]
-				},
-				{
-					"begin": "(js)(\"\"\")",
-					"beginCaptures": {
-						"1": {
-							"name": "support.function.macro.erg"
-						},
-						"2": {
-							"name": "punctuation.definition.string.begin.erg"
-						}
-					},
-					"end": "\"\"\"",
-					"endCaptures": {
-						"0": {
-							"name": "punctuation.definition.string.end.erg"
-						}
-					},
-					"name": "embed.js.erg",
-					"contentName": "meta.embedded.inline.javascript",
-					"patterns": [
-						{
-							"include": "source.js"
-						},
-						{
-							"include": "#string_dollar_sign_interpolate"
-						}
-					]
-				},
-				{
-					"begin": "(R)(\"\"\")",
-					"beginCaptures": {
-						"1": {
-							"name": "support.function.macro.erg"
-						},
-						"2": {
-							"name": "punctuation.definition.string.begin.erg"
-						}
-					},
-					"end": "\"\"\"",
-					"endCaptures": {
-						"0": {
-							"name": "punctuation.definition.string.end.erg"
-						}
-					},
-					"name": "embed.R.erg",
-					"contentName": "meta.embedded.inline.r",
-					"patterns": [
-						{
-							"include": "source.r"
-						},
-						{
-							"include": "#string_dollar_sign_interpolate"
-						}
-					]
-				},
-				{
-					"begin": "(raw)(\"\"\")",
-					"beginCaptures": {
-						"1": {
-							"name": "support.function.macro.erg"
-						},
-						"2": {
-							"name": "punctuation.definition.string.begin.erg"
-						}
-					},
-					"end": "\"\"\"",
-					"name": "string.quoted.other.erg",
-					"endCaptures": {
-						"0": {
-							"name": "punctuation.definition.string.end.erg"
-						}
-					}
-				},
-				{
-					"begin": "(raw)(\")",
-					"beginCaptures": {
-						"1": {
-							"name": "support.function.macro.erg"
-						},
-						"2": {
-							"name": "punctuation.definition.string.begin.erg"
-						}
-					},
-					"end": "\"",
-					"name": "string.quoted.other.erg",
-					"endCaptures": {
-						"0": {
-							"name": "punctuation.definition.string.end.erg"
-						}
-					}
-				},
-				{
-					"begin": "(sql)(\"\"\")",
-					"beginCaptures": {
-						"1": {
-							"name": "support.function.macro.erg"
-						},
-						"2": {
-							"name": "punctuation.definition.string.begin.erg"
-						}
-					},
-					"end": "\"\"\"",
-					"endCaptures": {
-						"0": {
-							"name": "punctuation.definition.string.end.erg"
-						}
-					},
-					"name": "embed.sql.erg",
-					"contentName": "meta.embedded.inline.sql",
-					"patterns": [
-						{
-							"include": "source.sql"
-						},
-						{
-							"include": "#string_dollar_sign_interpolate"
-						}
-					]
-				},
-				{
-					"begin": "var\"\"\"",
-					"end": "\"\"\"",
-					"name": "constant.other.symbol.erg"
-				},
-				{
-					"begin": "var\"",
-					"end": "\"",
-					"name": "constant.other.symbol.erg"
 				},
 				{
 					"begin": "^\\s?(doc)?(\"\"\")\\s?$",
@@ -645,7 +553,7 @@
 							"include": "#string_escaped_char"
 						},
 						{
-							"include": "#string_dollar_sign_interpolate"
+							"include": "#interpolated"
 						}
 					]
 				},
@@ -666,6 +574,9 @@
 					"patterns": [
 						{
 							"include": "#string_escaped_char"
+						},
+						{
+							"include": "#interpolated"
 						}
 					]
 				},
@@ -689,7 +600,7 @@
 							"include": "#string_escaped_char"
 						},
 						{
-							"include": "#string_dollar_sign_interpolate"
+							"include": "#interpolated"
 						}
 					]
 				},
@@ -713,7 +624,7 @@
 							"include": "#string_escaped_char"
 						},
 						{
-							"include": "#string_dollar_sign_interpolate"
+							"include": "#interpolated"
 						}
 					]
 				},
@@ -738,6 +649,9 @@
 					"patterns": [
 						{
 							"include": "#string_escaped_char"
+						},
+						{
+							"include": "#interpolated"
 						}
 					]
 				},
@@ -762,6 +676,9 @@
 					"patterns": [
 						{
 							"include": "#string_escaped_char"
+						},
+						{
+							"include": "#interpolated"
 						}
 					]
 				},
@@ -788,6 +705,9 @@
 					"patterns": [
 						{
 							"include": "#string_escaped_char"
+						},
+						{
+							"include": "#interpolated"
 						}
 					]
 				},
@@ -814,6 +734,9 @@
 					"patterns": [
 						{
 							"include": "#string_escaped_char"
+						},
+						{
+							"include": "#interpolated"
 						}
 					]
 				},
@@ -840,6 +763,9 @@
 					"patterns": [
 						{
 							"include": "#string_escaped_char"
+						},
+						{
+							"include": "#interpolated"
 						}
 					]
 				},
@@ -866,6 +792,9 @@
 					"patterns": [
 						{
 							"include": "#string_escaped_char"
+						},
+						{
+							"include": "#interpolated"
 						}
 					]
 				}
@@ -879,28 +808,6 @@
 				}
 			]
 		},
-		"string_dollar_sign_interpolate": {
-			"patterns": [
-				{
-					"match": "\\$(?:[[:alpha:]_\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}⅀-⅄∿⊾⊿⊤⊥∂∅-∇∎∏∐∑∞∟∫-∳⋀-⋃◸-◿♯⟘⟙⟀⟁⦰-⦴⨀-⨆⨉-⨖⨛⨜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃ⁱ-⁾₁-₎∠-∢⦛-⦯℘℮゛-゜𝟎-𝟡]|[^\\P{So}←-⇿])(?:[[:word:]_!\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}⅀-⅄∿⊾⊿⊤⊥∂∅-∇∎∏∐∑∞∟∫-∳⋀-⋃◸-◿♯⟘⟙⟀⟁⦰-⦴⨀-⨆⨉-⨖⨛⨜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃ⁱ-⁾₁-₎∠-∢⦛-⦯℘℮゛-゜𝟎-𝟡]|[^\\P{Mn}\u0001-¡]|[^\\P{Mc}\u0001-¡]|[^\\P{Nd}\u0001-¡]|[^\\P{Pc}\u0001-¡]|[^\\P{Sk}\u0001-¡]|[^\\P{Me}\u0001-¡]|[^\\P{No}\u0001-¡]|[′-‷⁗]|[^\\P{So}←-⇿])*",
-					"name": "variable.interpolation.erg"
-				},
-				{
-					"begin": "\\$\\(",
-					"end": "\\)",
-					"name": "variable.interpolation.erg",
-					"comment": "`punctuation.section.embedded`, `constant.escape`,\n& `meta.embedded.line` were considered but appear to have even spottier\nsupport among popular syntaxes.",
-					"patterns": [
-						{
-							"include": "#parentheses"
-						},
-						{
-							"include": "$self"
-						}
-					]
-				}
-			]
-		},
 		"symbol": {
 			"patterns": [
 				{
@@ -910,8 +817,20 @@
 				}
 			]
 		},
+		"special-variables-do": {
+			"match": "(do!)",
+			"captures": {
+				"1": {
+					"name": "variable.language.special.do.procedural.erg"
+				}
+			}
+		},
 		"procedural": {
             "patterns": [
+				{
+					"name": "support.function.procedural.builtin.erg",
+					"match": "(dir!|for!|globals!|id!|if!|input!|locals!|open!|match!|print!|while!|with!)"
+				},
                 {
                     "name": "constant.other.procedural.erg",
                     "match": "(([a-z_][A-Za-z0-9_]*!)|([A-Z_][A-Za-z0-9_]*!))",
@@ -946,14 +865,17 @@
 			]
 		},
 		"special-variables": {
-            "match": "(?x)\n  \\b (?<!\\.) (?:\n    (self) | (cls)\n  )\\b\n",
+            "match": "(?x)\n  \\b (?<!\\.) (?:\n (self) | (cls) | (do)\n  )\\b\n",
             "captures": {
                 "1": {
                     "name": "variable.language.special.self.python"
                 },
                 "2": {
                     "name": "variable.language.special.cls.python"
-                }
+                },
+				"3": {
+					"name": "variable.language.special.do.python"
+				}
             }
         },
 		"builtin-exceptions": {
@@ -964,7 +886,7 @@
             "patterns": [
                 {
                     "name": "support.function.builtin.erg",
-                    "match": "(?x)\n  (?<!\\.) \\b(\n    __import__ | abs | all | any | ascii | assert | bin | breakpoint | callable\n    | chr | compile | copyright | credits | delattr | dir | discard | divmod\n    | enumerate | eval | exec | exit | filter | format | getattr\n    | globals | hasattr | hash | help | hex | id | import\n    | isinstance | issubclass | iter | len | license | locals | log | map\n    | max | memoryview | min | next | not | oct | open | ord | pow | pyimport\n    | quit | range | reload | repr | reversed | round\n    | setattr | sorted | sum | vars | zip | Class | Trait | Inheritable | Inherit | Patch | Structural | Subsume\n  )\\b\n"
+                    "match": "(?x)\n  (?<!\\.) \\b(\n    __import__ | abs | all | any | ascii | assert | bin | breakpoint | callable\n    | chr | compile | copyright | credits | delattr | dir | discard | divmod\n    | enumerate | eval | exec | exit | filter | format | getattr\n    | globals | hasattr | hash | help | hex | if | import\n    | isinstance | issubclass | iter | len | license | locals | log | map\n   | match | max | memoryview | min | next | not | oct | open | ord | pow | pyimport\n    | quit | range | reload | repr | reversed | round\n    | setattr | sorted | sum | vars | zip | Class | Del | Trait | Inheritable | Inherit | Patch | Structural | Subsume\n  )\\b\n"
                 },
                 {
                     "name": "variable.legacy.builtin.erg",
