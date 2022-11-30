@@ -21,9 +21,6 @@
 			"include": "#function_decl"
 		},
 		{
-			"include": "#function_call"
-		},
-		{
 			"include": "#keyword"
 		},
 		{
@@ -37,6 +34,12 @@
 		},
 		{
 			"include": "#symbol"
+		},
+		{
+			"include": "#raw-symbol"
+		},
+		{
+			"include": "#symbolized-operator"
 		},
 		{
 			"include": "#special-variables-do"
@@ -245,42 +248,6 @@
 				}
 			]
 		},
-		"function_call": {
-			"patterns": [
-				{
-					"begin": "((?:[[:alpha:]_\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}⅀-⅄∿⊾⊿⊤⊥∂∅-∇∎∏∐∑∞∟∫-∳⋀-⋃◸-◿♯⟘⟙⟀⟁⦰-⦴⨀-⨆⨉-⨖⨛⨜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃ⁱ-⁾₁-₎∠-∢⦛-⦯℘℮゛-゜𝟎-𝟡]|[^\\P{So}←-⇿])(?:[[:word:]_!\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}⅀-⅄∿⊾⊿⊤⊥∂∅-∇∎∏∐∑∞∟∫-∳⋀-⋃◸-◿♯⟘⟙⟀⟁⦰-⦴⨀-⨆⨉-⨖⨛⨜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃ⁱ-⁾₁-₎∠-∢⦛-⦯℘℮゛-゜𝟎-𝟡]|[^\\P{Mn}\u0001-¡]|[^\\P{Mc}\u0001-¡]|[^\\P{Nd}\u0001-¡]|[^\\P{Pc}\u0001-¡]|[^\\P{Sk}\u0001-¡]|[^\\P{Me}\u0001-¡]|[^\\P{No}\u0001-¡]|[′-‷⁗]|[^\\P{So}←-⇿])*)({(?:[^{}]|{(?:[^{}]|{[^{}]*})*})*})?\\.?(\\()",
-					"beginCaptures": {
-						"1": {
-							"name": "support.function.erg"
-						},
-						"2": {
-							"name": "support.type.erg"
-						},
-						"3": {
-							"name": "meta.bracket.erg"
-						}
-					},
-					"end": "\\)(('|(\\.'))*\\.?')?",
-					"endCaptures": {
-						"0": {
-							"name": "meta.bracket.erg"
-						},
-						"1": {
-							"name": "keyword.operator.transposed-func.erg"
-						}
-					},
-					"patterns": [
-						{
-							"match": "\\bfor\\b",
-							"name": "keyword.control.erg"
-						},
-						{
-							"include": "$self"
-						}
-					]
-				}
-			]
-		},
 		"function_decl": {
 			"patterns": [
 				{
@@ -454,39 +421,10 @@
 		"string": {
 			"patterns": [
 				{
-					"begin": "(?:(@doc)\\s((?:doc)?\"\"\")|(doc\"\"\"))",
-					"beginCaptures": {
-						"1": {
-							"name": "support.function.macro.erg"
-						},
-						"2": {
-							"name": "punctuation.definition.string.begin.erg"
-						}
-					},
-					"end": "(\"\"\") ?(->)?",
-					"endCaptures": {
-						"1": {
-							"name": "punctuation.definition.string.end.erg"
-						},
-						"2": {
-							"name": "keyword.operator.arrow.erg"
-						}
-					},
-					"name": "string.docstring.erg",
-					"patterns": [
-						{
-							"include": "#string_escaped_char"
-						},
-						{
-							"include": "#interpolated"
-						}
-					]
-				},
-				{
 					"begin": "(rusteval!|rustexec!) *(\"\"\")",
 					"beginCaptures": {
 						"1": {
-							"name": "support.function.macro.erg"
+							"name": "support.function.procedural.builtin.erg"
 						},
 						"2": {
 							"name": "punctuation.definition.string.begin.erg"
@@ -510,7 +448,7 @@
 					"begin": "(rusteval!|rustexec!) *(\")",
 					"beginCaptures": {
 						"1": {
-							"name": "support.function.macro.erg"
+							"name": "support.function.procedural.builtin.erg"
 						},
 						"2": {
 							"name": "punctuation.definition.string.begin.erg"
@@ -534,7 +472,7 @@
 					"begin": "(pyexec!|pyeval!) *(\"\"\")",
 					"beginCaptures": {
 						"1": {
-							"name": "support.function.macro.erg"
+							"name": "support.function.procedural.builtin.erg"
 						},
 						"2": {
 							"name": "punctuation.definition.string.begin.erg"
@@ -558,7 +496,7 @@
 					"begin": "(pyexec!|pyeval!) *(\")",
 					"beginCaptures": {
 						"1": {
-							"name": "support.function.macro.erg"
+							"name": "support.function.procedural.builtin.erg"
 						},
 						"2": {
 							"name": "punctuation.definition.string.begin.erg"
@@ -579,26 +517,6 @@
 					]
 				},
 				{
-					"begin": "'",
-					"beginCaptures": {
-						"0": {
-							"name": "punctuation.definition.string.begin.erg"
-						}
-					},
-					"end": "'(?!')",
-					"endCaptures": {
-						"0": {
-							"name": "punctuation.definition.string.end.erg"
-						}
-					},
-					"name": "variable.other.erg",
-					"patterns": [
-						{
-							"include": "#string_escaped_char"
-						}
-					]
-				},
-				{
 					"begin": "\"\"\"",
 					"beginCaptures": {
 						"0": {
@@ -613,6 +531,57 @@
 					},
 					"name": "string.quoted.triple.double.erg",
 					"comment": "multi-line string with triple double quotes",
+					"patterns": [
+						{
+							"include": "#string_escaped_char"
+						}
+					]
+				},
+				{
+					"begin": "(fmt) *(\"\"\")",
+					"beginCaptures": {
+						"1": {
+							"name": "support.function.builtin.erg"
+						},
+						"2": {
+							"name": "punctuation.definition.string.multiline.begin.erg"
+						}
+					},
+					"end": "\"\"\"",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.multiline.end.erg"
+						}
+					},
+					"name": "string.formatted.quoted.triple.double.erg",
+					"comment": "formatted multi-line string with triple double quotes",
+					"patterns": [
+						{
+							"include": "#string_escaped_char"
+						},
+						{
+							"include": "#interpolated"
+						}
+					]
+				},
+				{
+					"name": "string.formatted.quoted.double.erg",
+					"begin": "(fmt) *(\")",
+					"beginCaptures": {
+						"1": {
+							"name": "support.function.builtin.erg"
+						},
+						"2": {
+							"name": "punctuation.definition.string.begin.erg"
+						}
+					},
+					"end": "\"",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.end.erg"
+						}
+					},
+					"comment": "String with single pair of double quotes. Regex matches isolated double quote",
 					"patterns": [
 						{
 							"include": "#string_escaped_char"
@@ -640,70 +609,47 @@
 					"patterns": [
 						{
 							"include": "#string_escaped_char"
-						},
-						{
-							"include": "#interpolated"
 						}
 					]
-				},
+				}
+			]
+		},
+		"string_escaped_char": {
+			"patterns": [
 				{
-					"begin": "(?<!\")((?:[[:alpha:]_\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}⅀-⅄∿⊾⊿⊤⊥∂∅-∇∎∏∐∑∞∟∫-∳⋀-⋃◸-◿♯⟘⟙⟀⟁⦰-⦴⨀-⨆⨉-⨖⨛⨜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃ⁱ-⁾₁-₎∠-∢⦛-⦯℘℮゛-゜𝟎-𝟡]|[^\\P{So}←-⇿])(?:[[:word:]_!\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}⅀-⅄∿⊾⊿⊤⊥∂∅-∇∎∏∐∑∞∟∫-∳⋀-⋃◸-◿♯⟘⟙⟀⟁⦰-⦴⨀-⨆⨉-⨖⨛⨜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃ⁱ-⁾₁-₎∠-∢⦛-⦯℘℮゛-゜𝟎-𝟡]|[^\\P{Mn}\u0001-¡]|[^\\P{Mc}\u0001-¡]|[^\\P{Nd}\u0001-¡]|[^\\P{Pc}\u0001-¡]|[^\\P{Sk}\u0001-¡]|[^\\P{Me}\u0001-¡]|[^\\P{No}\u0001-¡]|[′-‷⁗]|[^\\P{So}←-⇿])*)\"\"\"",
-					"beginCaptures": {
-						"0": {
-							"name": "punctuation.definition.string.begin.erg"
-						},
-						"1": {
-							"name": "support.function.macro.erg"
-						}
-					},
-					"end": "(\"\"\")((?:[[:alpha:]_\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}⅀-⅄∿⊾⊿⊤⊥∂∅-∇∎∏∐∑∞∟∫-∳⋀-⋃◸-◿♯⟘⟙⟀⟁⦰-⦴⨀-⨆⨉-⨖⨛⨜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃ⁱ-⁾₁-₎∠-∢⦛-⦯℘℮゛-゜𝟎-𝟡]|[^\\P{So}←-⇿])(?:[[:word:]_!\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}⅀-⅄∿⊾⊿⊤⊥∂∅-∇∎∏∐∑∞∟∫-∳⋀-⋃◸-◿♯⟘⟙⟀⟁⦰-⦴⨀-⨆⨉-⨖⨛⨜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃ⁱ-⁾₁-₎∠-∢⦛-⦯℘℮゛-゜𝟎-𝟡]|[^\\P{Mn}\u0001-¡]|[^\\P{Mc}\u0001-¡]|[^\\P{Nd}\u0001-¡]|[^\\P{Pc}\u0001-¡]|[^\\P{Sk}\u0001-¡]|[^\\P{Me}\u0001-¡]|[^\\P{No}\u0001-¡]|[′-‷⁗]|[^\\P{So}←-⇿])*)?",
-					"endCaptures": {
-						"1": {
-							"name": "punctuation.definition.string.end.erg"
-						},
-						"2": {
-							"name": "support.function.macro.erg"
-						}
-					},
-					"name": "string.quoted.other.erg",
-					"patterns": [
-						{
-							"include": "#string_escaped_char"
-						},
-						{
-							"include": "#interpolated"
-						}
-					]
-				},
+					"match": "\\\\(\\\\|[0-3]\\d{,2}|[4-7]\\d?|x[a-fA-F0-9]{,2}|u[a-fA-F0-9]{,4}|U[a-fA-F0-9]{,8}|.)",
+					"name": "constant.character.escape.erg"
+				}
+			]
+		},
+		"symbol": {
+			"patterns": [
 				{
-					"begin": "(?<!\")((?:[[:alpha:]_\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}⅀-⅄∿⊾⊿⊤⊥∂∅-∇∎∏∐∑∞∟∫-∳⋀-⋃◸-◿♯⟘⟙⟀⟁⦰-⦴⨀-⨆⨉-⨖⨛⨜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃ⁱ-⁾₁-₎∠-∢⦛-⦯℘℮゛-゜𝟎-𝟡]|[^\\P{So}←-⇿])(?:[[:word:]_!\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}⅀-⅄∿⊾⊿⊤⊥∂∅-∇∎∏∐∑∞∟∫-∳⋀-⋃◸-◿♯⟘⟙⟀⟁⦰-⦴⨀-⨆⨉-⨖⨛⨜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃ⁱ-⁾₁-₎∠-∢⦛-⦯℘℮゛-゜𝟎-𝟡]|[^\\P{Mn}\u0001-¡]|[^\\P{Mc}\u0001-¡]|[^\\P{Nd}\u0001-¡]|[^\\P{Pc}\u0001-¡]|[^\\P{Sk}\u0001-¡]|[^\\P{Me}\u0001-¡]|[^\\P{No}\u0001-¡]|[′-‷⁗]|[^\\P{So}←-⇿])*)\"",
-					"beginCaptures": {
-						"0": {
-							"name": "punctuation.definition.string.begin.erg"
-						},
-						"1": {
-							"name": "support.function.macro.erg"
-						}
-					},
-					"end": "(?<![^\\\\]\\\\)(\")((?:[[:alpha:]_\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}⅀-⅄∿⊾⊿⊤⊥∂∅-∇∎∏∐∑∞∟∫-∳⋀-⋃◸-◿♯⟘⟙⟀⟁⦰-⦴⨀-⨆⨉-⨖⨛⨜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃ⁱ-⁾₁-₎∠-∢⦛-⦯℘℮゛-゜𝟎-𝟡]|[^\\P{So}←-⇿])(?:[[:word:]_!\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}⅀-⅄∿⊾⊿⊤⊥∂∅-∇∎∏∐∑∞∟∫-∳⋀-⋃◸-◿♯⟘⟙⟀⟁⦰-⦴⨀-⨆⨉-⨖⨛⨜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃ⁱ-⁾₁-₎∠-∢⦛-⦯℘℮゛-゜𝟎-𝟡]|[^\\P{Mn}\u0001-¡]|[^\\P{Mc}\u0001-¡]|[^\\P{Nd}\u0001-¡]|[^\\P{Pc}\u0001-¡]|[^\\P{Sk}\u0001-¡]|[^\\P{Me}\u0001-¡]|[^\\P{No}\u0001-¡]|[′-‷⁗]|[^\\P{So}←-⇿])*)?",
-					"endCaptures": {
-						"1": {
-							"name": "punctuation.definition.string.end.erg"
-						},
-						"2": {
-							"name": "support.function.macro.erg"
-						}
-					},
-					"name": "string.quoted.other.erg",
-					"patterns": [
-						{
-							"include": "#string_escaped_char"
-						},
-						{
-							"include": "#interpolated"
-						}
-					]
-				},
+					"match": "(?<![[:word:]⁺-ₜ!′∇\\)\\]\\}]):(?:(?:[[:alpha:]_\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}⅀-⅄∿⊾⊿⊤⊥∂∅-∇∎∏∐∑∞∟∫-∳⋀-⋃◸-◿♯⟘⟙⟀⟁⦰-⦴⨀-⨆⨉-⨖⨛⨜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃ⁱ-⁾₁-₎∠-∢⦛-⦯℘℮゛-゜𝟎-𝟡]|[^\\P{So}←-⇿])(?:[[:word:]_!\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}⅀-⅄∿⊾⊿⊤⊥∂∅-∇∎∏∐∑∞∟∫-∳⋀-⋃◸-◿♯⟘⟙⟀⟁⦰-⦴⨀-⨆⨉-⨖⨛⨜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃ⁱ-⁾₁-₎∠-∢⦛-⦯℘℮゛-゜𝟎-𝟡]|[^\\P{Mn}\u0001-¡]|[^\\P{Mc}\u0001-¡]|[^\\P{Nd}\u0001-¡]|[^\\P{Pc}\u0001-¡]|[^\\P{Sk}\u0001-¡]|[^\\P{Me}\u0001-¡]|[^\\P{No}\u0001-¡]|[′-‷⁗]|[^\\P{So}←-⇿])*)(?!(?:[[:word:]_!\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}⅀-⅄∿⊾⊿⊤⊥∂∅-∇∎∏∐∑∞∟∫-∳⋀-⋃◸-◿♯⟘⟙⟀⟁⦰-⦴⨀-⨆⨉-⨖⨛⨜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃ⁱ-⁾₁-₎∠-∢⦛-⦯℘℮゛-゜𝟎-𝟡]|[^\\P{Mn}\u0001-¡]|[^\\P{Mc}\u0001-¡]|[^\\P{Nd}\u0001-¡]|[^\\P{Pc}\u0001-¡]|[^\\P{Sk}\u0001-¡]|[^\\P{Me}\u0001-¡]|[^\\P{No}\u0001-¡]|[′-‷⁗]|[^\\P{So}←-⇿]))(?![\"`])",
+					"name": "constant.other.symbol.erg",
+					"comment": "This is string.quoted.symbol.erg in tpoisot's package"
+				}
+			]
+		},
+		"raw-symbol": {
+			"begin": "'",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.begin.erg"
+				}
+			},
+			"end": "'(?!')",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.definition.string.end.erg"
+				}
+			},
+			"name": "source.other.raw.erg",
+			"patterns": [
+			]
+		},
+		"symbolized-operator": {
+			"patterns": [
 				{
 					"begin": "(?<!`)((?:[[:alpha:]_\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}⅀-⅄∿⊾⊿⊤⊥∂∅-∇∎∏∐∑∞∟∫-∳⋀-⋃◸-◿♯⟘⟙⟀⟁⦰-⦴⨀-⨆⨉-⨖⨛⨜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃ⁱ-⁾₁-₎∠-∢⦛-⦯℘℮゛-゜𝟎-𝟡]|[^\\P{So}←-⇿])(?:[[:word:]_!\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}⅀-⅄∿⊾⊿⊤⊥∂∅-∇∎∏∐∑∞∟∫-∳⋀-⋃◸-◿♯⟘⟙⟀⟁⦰-⦴⨀-⨆⨉-⨖⨛⨜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃ⁱ-⁾₁-₎∠-∢⦛-⦯℘℮゛-゜𝟎-𝟡]|[^\\P{Mn}\u0001-¡]|[^\\P{Mc}\u0001-¡]|[^\\P{Nd}\u0001-¡]|[^\\P{Pc}\u0001-¡]|[^\\P{Sk}\u0001-¡]|[^\\P{Me}\u0001-¡]|[^\\P{No}\u0001-¡]|[′-‷⁗]|[^\\P{So}←-⇿])*)?```",
 					"beginCaptures": {
@@ -755,23 +701,6 @@
 							"include": "#string_escaped_char"
 						}
 					]
-				}
-			]
-		},
-		"string_escaped_char": {
-			"patterns": [
-				{
-					"match": "\\\\(\\\\|[0-3]\\d{,2}|[4-7]\\d?|x[a-fA-F0-9]{,2}|u[a-fA-F0-9]{,4}|U[a-fA-F0-9]{,8}|.)",
-					"name": "constant.character.escape.erg"
-				}
-			]
-		},
-		"symbol": {
-			"patterns": [
-				{
-					"match": "(?<![[:word:]⁺-ₜ!′∇\\)\\]\\}]):(?:(?:[[:alpha:]_\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}⅀-⅄∿⊾⊿⊤⊥∂∅-∇∎∏∐∑∞∟∫-∳⋀-⋃◸-◿♯⟘⟙⟀⟁⦰-⦴⨀-⨆⨉-⨖⨛⨜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃ⁱ-⁾₁-₎∠-∢⦛-⦯℘℮゛-゜𝟎-𝟡]|[^\\P{So}←-⇿])(?:[[:word:]_!\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}⅀-⅄∿⊾⊿⊤⊥∂∅-∇∎∏∐∑∞∟∫-∳⋀-⋃◸-◿♯⟘⟙⟀⟁⦰-⦴⨀-⨆⨉-⨖⨛⨜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃ⁱ-⁾₁-₎∠-∢⦛-⦯℘℮゛-゜𝟎-𝟡]|[^\\P{Mn}\u0001-¡]|[^\\P{Mc}\u0001-¡]|[^\\P{Nd}\u0001-¡]|[^\\P{Pc}\u0001-¡]|[^\\P{Sk}\u0001-¡]|[^\\P{Me}\u0001-¡]|[^\\P{No}\u0001-¡]|[′-‷⁗]|[^\\P{So}←-⇿])*)(?!(?:[[:word:]_!\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}⅀-⅄∿⊾⊿⊤⊥∂∅-∇∎∏∐∑∞∟∫-∳⋀-⋃◸-◿♯⟘⟙⟀⟁⦰-⦴⨀-⨆⨉-⨖⨛⨜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃ⁱ-⁾₁-₎∠-∢⦛-⦯℘℮゛-゜𝟎-𝟡]|[^\\P{Mn}\u0001-¡]|[^\\P{Mc}\u0001-¡]|[^\\P{Nd}\u0001-¡]|[^\\P{Pc}\u0001-¡]|[^\\P{Sk}\u0001-¡]|[^\\P{Me}\u0001-¡]|[^\\P{No}\u0001-¡]|[′-‷⁗]|[^\\P{So}←-⇿]))(?![\"`])",
-					"name": "constant.other.symbol.erg",
-					"comment": "This is string.quoted.symbol.erg in tpoisot's package"
 				}
 			]
 		},
