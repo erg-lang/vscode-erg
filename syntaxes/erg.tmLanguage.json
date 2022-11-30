@@ -483,7 +483,7 @@
 					]
 				},
 				{
-					"begin": "(i?cxx)(\"\"\")",
+					"begin": "(rusteval!|rustexec!) *(\"\"\")",
 					"beginCaptures": {
 						"1": {
 							"name": "support.function.macro.erg"
@@ -492,22 +492,46 @@
 							"name": "punctuation.definition.string.begin.erg"
 						}
 					},
-					"end": "\"\"\"",
+					"end": "(\"\"\")",
 					"endCaptures": {
 						"0": {
 							"name": "punctuation.definition.string.end.erg"
 						}
 					},
-					"name": "embed.cxx.erg",
-					"contentName": "meta.embedded.inline.cpp",
+					"name": "embed.rust.erg",
+					"contentName": "meta.embedded.inline.rust",
 					"patterns": [
 						{
-							"include": "source.cpp#root_context"
+							"include": "source.rust"
 						}
 					]
 				},
 				{
-					"begin": "(py)(\"\"\")",
+					"begin": "(rusteval!|rustexec!) *(\")",
+					"beginCaptures": {
+						"1": {
+							"name": "support.function.macro.erg"
+						},
+						"2": {
+							"name": "punctuation.definition.string.begin.erg"
+						}
+					},
+					"end": "\"",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.end.erg"
+						}
+					},
+					"name": "embed.rust.erg",
+					"contentName": "meta.embedded.inline.rust",
+					"patterns": [
+						{
+							"include": "source.rust"
+						}
+					]
+				},
+				{
+					"begin": "(pyexec!|pyeval!) *(\"\"\")",
 					"beginCaptures": {
 						"1": {
 							"name": "support.function.macro.erg"
@@ -531,7 +555,7 @@
 					]
 				},
 				{
-					"begin": "^\\s?(doc)?(\"\"\")\\s?$",
+					"begin": "(pyexec!|pyeval!) *(\")",
 					"beginCaptures": {
 						"1": {
 							"name": "support.function.macro.erg"
@@ -540,20 +564,17 @@
 							"name": "punctuation.definition.string.begin.erg"
 						}
 					},
-					"end": "(\"\"\")",
+					"end": "\"",
 					"endCaptures": {
-						"1": {
+						"0": {
 							"name": "punctuation.definition.string.end.erg"
 						}
 					},
-					"name": "string.docstring.erg",
-					"comment": "This only matches docstrings that start and end with triple quotes on\ntheir own line in the void",
+					"name": "embed.python.erg",
+					"contentName": "meta.embedded.inline.python",
 					"patterns": [
 						{
-							"include": "#string_escaped_char"
-						},
-						{
-							"include": "#interpolated"
+							"include": "source.python"
 						}
 					]
 				},
@@ -570,13 +591,10 @@
 							"name": "punctuation.definition.string.end.erg"
 						}
 					},
-					"name": "string.quoted.single.erg",
+					"name": "variable.other.erg",
 					"patterns": [
 						{
 							"include": "#string_escaped_char"
-						},
-						{
-							"include": "#interpolated"
 						}
 					]
 				},
@@ -619,60 +637,6 @@
 						}
 					},
 					"comment": "String with single pair of double quotes. Regex matches isolated double quote",
-					"patterns": [
-						{
-							"include": "#string_escaped_char"
-						},
-						{
-							"include": "#interpolated"
-						}
-					]
-				},
-				{
-					"begin": "r\"\"\"",
-					"beginCaptures": {
-						"0": {
-							"name": "punctuation.definition.string.regexp.begin.erg"
-						}
-					},
-					"end": "(\"\"\")([imsx]{0,4})?",
-					"endCaptures": {
-						"1": {
-							"name": "punctuation.definition.string.regexp.end.erg"
-						},
-						"2": {
-							"comment": "I took this scope name from python regex grammar",
-							"name": "keyword.other.option-toggle.regexp.erg"
-						}
-					},
-					"name": "string.regexp.erg",
-					"patterns": [
-						{
-							"include": "#string_escaped_char"
-						},
-						{
-							"include": "#interpolated"
-						}
-					]
-				},
-				{
-					"begin": "r\"",
-					"beginCaptures": {
-						"0": {
-							"name": "punctuation.definition.string.regexp.begin.erg"
-						}
-					},
-					"end": "(\")([imsx]{0,4})?",
-					"endCaptures": {
-						"1": {
-							"name": "punctuation.definition.string.regexp.end.erg"
-						},
-						"2": {
-							"comment": "I took this scope name from python regex grammar",
-							"name": "keyword.other.option-toggle.regexp.erg"
-						}
-					},
-					"name": "string.regexp.erg",
 					"patterns": [
 						{
 							"include": "#string_escaped_char"
@@ -759,13 +723,10 @@
 							"name": "support.function.macro.erg"
 						}
 					},
-					"name": "string.interpolated.backtick.erg",
+					"name": "keyword.operator.backtick.erg",
 					"patterns": [
 						{
 							"include": "#string_escaped_char"
-						},
-						{
-							"include": "#interpolated"
 						}
 					]
 				},
@@ -788,13 +749,10 @@
 							"name": "support.function.macro.erg"
 						}
 					},
-					"name": "string.interpolated.backtick.erg",
+					"name": "keyword.operator.backtick.erg",
 					"patterns": [
 						{
 							"include": "#string_escaped_char"
-						},
-						{
-							"include": "#interpolated"
 						}
 					]
 				}
