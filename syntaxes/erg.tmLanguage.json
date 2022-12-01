@@ -170,7 +170,7 @@
 		"interpolated": {
 			"patterns": [
 				{
-					"begin": "\\{",
+					"begin": "\\\\\\{",
 					"beginCaptures": {
 						"0": {
 							"name": "punctuation.section.embedded.begin.erg"
@@ -199,7 +199,7 @@
 						"nest_curly_and_self": {
 							"patterns": [
 								{
-									"begin": "\\{",
+									"begin": "\\\\\\{",
 									"captures": {
 										"0": {
 											"name": "punctuation.section.scope.erg"
@@ -533,61 +533,10 @@
 					"comment": "multi-line string with triple double quotes",
 					"patterns": [
 						{
-							"include": "#string_escaped_char"
-						}
-					]
-				},
-				{
-					"begin": "(fmt) *(\"\"\")",
-					"beginCaptures": {
-						"1": {
-							"name": "support.function.builtin.erg"
-						},
-						"2": {
-							"name": "punctuation.definition.string.multiline.begin.erg"
-						}
-					},
-					"end": "\"\"\"",
-					"endCaptures": {
-						"0": {
-							"name": "punctuation.definition.string.multiline.end.erg"
-						}
-					},
-					"name": "string.formatted.quoted.triple.double.erg",
-					"comment": "formatted multi-line string with triple double quotes",
-					"patterns": [
-						{
-							"include": "#string_escaped_char"
-						},
-						{
 							"include": "#interpolated"
-						}
-					]
-				},
-				{
-					"name": "string.formatted.quoted.double.erg",
-					"begin": "(fmt) *(\")",
-					"beginCaptures": {
-						"1": {
-							"name": "support.function.builtin.erg"
 						},
-						"2": {
-							"name": "punctuation.definition.string.begin.erg"
-						}
-					},
-					"end": "\"",
-					"endCaptures": {
-						"0": {
-							"name": "punctuation.definition.string.end.erg"
-						}
-					},
-					"comment": "String with single pair of double quotes. Regex matches isolated double quote",
-					"patterns": [
 						{
 							"include": "#string_escaped_char"
-						},
-						{
-							"include": "#interpolated"
 						}
 					]
 				},
@@ -607,6 +556,9 @@
 					},
 					"comment": "String with single pair of double quotes. Regex matches isolated double quote",
 					"patterns": [
+						{
+							"include": "#interpolated"
+						},
 						{
 							"include": "#string_escaped_char"
 						}
@@ -645,8 +597,7 @@
 				}
 			},
 			"name": "source.other.raw.erg",
-			"patterns": [
-			]
+			"patterns": []
 		},
 		"symbolized-operator": {
 			"patterns": [
@@ -713,25 +664,25 @@
 			}
 		},
 		"procedural": {
-            "patterns": [
+			"patterns": [
 				{
 					"name": "support.function.procedural.builtin.erg",
 					"match": "(dir!|for!|globals!|id!|if!|input!|locals!|open!|match!|print!|while!|with!)"
 				},
-                {
-                    "name": "constant.other.procedural.erg",
-                    "match": "(([a-z_][A-Za-z0-9_]*!)|([A-Z_][A-Za-z0-9_]*!))",
-                    "captures": {
-                        "2": {
-                            "name": "entity.name.function.procedural.erg"
-                        },
-                        "3": {
-                            "name": "entity.name.type.procedural.erg"
-                        }
-                    }
-                }
-            ]
-        },
+				{
+					"name": "constant.other.procedural.erg",
+					"match": "(([a-z_][A-Za-z0-9_]*!)|([A-Z_][A-Za-z0-9_]*!))",
+					"captures": {
+						"2": {
+							"name": "entity.name.function.procedural.erg"
+						},
+						"3": {
+							"name": "entity.name.type.procedural.erg"
+						}
+					}
+				}
+			]
+		},
 		"type_decl": {
 			"patterns": [
 				{
@@ -752,39 +703,42 @@
 			]
 		},
 		"special-variables": {
-            "match": "(?x)\n  \\b (?<!\\.) (?:\n (self) | (cls) | (do)\n  )\\b\n",
-            "captures": {
-                "1": {
-                    "name": "variable.language.special.self.python"
-                },
-                "2": {
-                    "name": "variable.language.special.cls.python"
-                },
+			"match": "(?x)\n  \\b (?<!\\.) (?:\n (Self) | (self) | (cls) | (do)\n  )\\b\n",
+			"captures": {
+				"1": {
+					"name": "variable.language.special.self.type.erg"
+				},
+				"2": {
+					"name": "variable.language.special.self.erg"
+				},
 				"3": {
-					"name": "variable.language.special.do.python"
+					"name": "variable.language.special.cls.erg"
+				},
+				"4": {
+					"name": "variable.language.special.do.erg"
 				}
-            }
-        },
+			}
+		},
 		"builtin-exceptions": {
-            "name": "support.type.exception.erg",
-            "match": "(?x) (?<!\\.) \\b(\n  (\n    Arithmetic | Assertion | Attribute | Buffer | BlockingIO\n    | BrokenPipe | ChildProcess\n    | (Connection (Aborted | Refused | Reset)?)\n    | EOF | Environment | FileExists | FileNotFound\n    | FloatingPoint | IO | Import | Indentation | Index | Interrupted\n    | IsADirectory | NotADirectory | Permission | ProcessLookup\n    | Timeout\n    | Key | Lookup | Memory | Name | NotImplemented | OS | Overflow\n    | Reference | Runtime | Recursion | Syntax | System\n    | Tab | Type | UnboundLocal | Unicode(Encode|Decode|Translate)?\n    | Value | Windows | ZeroDivision | ModuleNotFound\n  ) Error\n|\n  ((Pending)?Deprecation | Runtime | Syntax | User | Future | Import\n    | Unicode | Bytes | Resource\n  )? Warning\n|\n  SystemExit | Stop(Async)?Iteration\n  | KeyboardInterrupt\n  | GeneratorExit | (Base)?Exception\n)\\b\n"
-        },
-        "builtin-functions": {
-            "patterns": [
-                {
-                    "name": "support.function.builtin.erg",
-                    "match": "(?x)\n  (?<!\\.) \\b(\n    __import__ | abs | all | any | ascii | assert | bin | breakpoint | callable\n    | chr | compile | copyright | credits | delattr | dir | discard | divmod\n    | enumerate | eval | exec | exit | filter | format | getattr\n    | globals | hasattr | hash | help | hex | if | import\n    | isinstance | issubclass | iter | len | license | locals | log | map\n   | match | max | memoryview | min | next | not | oct | open | ord | pow | pyimport\n    | quit | range | reload | repr | reversed | round\n    | setattr | sorted | sum | vars | zip | Class | Del | Trait | Inheritable | Inherit | Patch | Structural | Subsume\n  )\\b\n"
-                },
-                {
-                    "name": "variable.legacy.builtin.erg",
-                    "match": "(?x)\n  (?<!\\.) \\b(\n    file | reduce | intern | raw_input | unicode | cmp | basestring\n    | execfile | long | xrange\n  )\\b\n"
-                }
-            ]
-        },
+			"name": "support.type.exception.erg",
+			"match": "(?x) (?<!\\.) \\b(\n  (\n    Arithmetic | Assertion | Attribute | Buffer | BlockingIO\n    | BrokenPipe | ChildProcess\n    | (Connection (Aborted | Refused | Reset)?)\n    | EOF | Environment | FileExists | FileNotFound\n    | FloatingPoint | IO | Import | Indentation | Index | Interrupted\n    | IsADirectory | NotADirectory | Permission | ProcessLookup\n    | Timeout\n    | Key | Lookup | Memory | Name | NotImplemented | OS | Overflow\n    | Reference | Runtime | Recursion | Syntax | System\n    | Tab | Type | UnboundLocal | Unicode(Encode|Decode|Translate)?\n    | Value | Windows | ZeroDivision | ModuleNotFound\n  ) Error\n|\n  ((Pending)?Deprecation | Runtime | Syntax | User | Future | Import\n    | Unicode | Bytes | Resource\n  )? Warning\n|\n  SystemExit | Stop(Async)?Iteration\n  | KeyboardInterrupt\n  | GeneratorExit | (Base)?Exception\n)\\b\n"
+		},
+		"builtin-functions": {
+			"patterns": [
+				{
+					"name": "support.function.builtin.erg",
+					"match": "(?x)\n  (?<!\\.) \\b(\n    __import__ | abs | all | any | ascii | assert | bin | breakpoint | callable\n    | chr | compile | copyright | credits | delattr | dir | discard | divmod\n    | enumerate | eval | exec | exit | filter | format | getattr\n    | globals | hasattr | hash | help | hex | if | import\n    | isinstance | issubclass | iter | len | license | locals | log | map\n   | match | max | memoryview | min | next | not | oct | open | ord | pow | pyimport\n    | quit | range | reload | repr | reversed | round\n    | setattr | sorted | sum | vars | zip | Class | Del | Trait | Inheritable | Inherit | Patch | Structural | Subsume\n  )\\b\n"
+				},
+				{
+					"name": "variable.legacy.builtin.erg",
+					"match": "(?x)\n  (?<!\\.) \\b(\n    file | reduce | intern | raw_input | unicode | cmp | basestring\n    | execfile | long | xrange\n  )\\b\n"
+				}
+			]
+		},
 		"builtin-types": {
-            "name": "support.type.erg",
-            "match": "(?x)\n  (?<!\\.) \\b(\n   Array | Bool | ByteArray | Bytes | ClassType | ClassMethod | Complex | Dict\n    | Float | FrozenSet | Int | Nat | Never | NoneType | Object | Property | Ratio\n    | Set | Slice | StaticMethod | Str | Tuple | TraitType | Type\n\n    (?# Although 'super' is not a type, it's related to types,\n        and is special enough to be highlighted differently from\n        other built-ins)\n    | super\n  )\\b\n"
-        }
+			"name": "support.type.erg",
+			"match": "(?x)\n  (?<!\\.) \\b(\n   Array | Bool | ByteArray | Bytes | ClassType | ClassMethod | Complex | Dict\n    | Float | FrozenSet | Int | Nat | Never | NoneType | Object | Property | Ratio\n    | Set | Slice | StaticMethod | Str | Tuple | TraitType | Type\n\n    (?# Although 'super' is not a type, it's related to types,\n        and is special enough to be highlighted differently from\n        other built-ins)\n    | super\n  )\\b\n"
+		}
 	},
 	"scopeName": "source.erg"
 }
