@@ -177,13 +177,10 @@
 						}
 					},
 					"contentName": "source.erg",
-					"end": "(\\})",
+					"end": "\\}",
 					"endCaptures": {
 						"0": {
 							"name": "punctuation.section.embedded.end.erg"
-						},
-						"1": {
-							"name": "source.erg"
 						}
 					},
 					"name": "meta.embedded.line.erg",
