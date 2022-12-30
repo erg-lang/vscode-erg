@@ -9,7 +9,7 @@ export async function activate(context: ExtensionContext) {
 		const serverOptions = {
 			command: "els",
 			args: [],
-		} satisfies ServerOptions;
+		}; // satisfies ServerOptions;
 		const clientOptions = {
 			documentSelector: [
 				{
@@ -17,7 +17,7 @@ export async function activate(context: ExtensionContext) {
 					language: "erg",
 				},
 			],
-		} satisfies LanguageClientOptions;
+		}; // satisfies LanguageClientOptions;
 		client = new LanguageClient("els", serverOptions, clientOptions);
 		context.subscriptions.push(client.start());
 	} catch (e) {
@@ -26,5 +26,7 @@ export async function activate(context: ExtensionContext) {
 }
 
 export function deactivate() {
-	if (client) return client.stop();
+	if (client) {
+		return client.stop();
+	}
 }
