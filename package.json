@@ -48,23 +48,29 @@
     "package": "webpack --mode production --devtool hidden-source-map",
     "compile-tests": "tsc -p . --outDir out",
     "watch-tests": "tsc -p . -w --outDir out",
-    "pretest": "npm run compile-tests && npm run compile",
-    "test": "node ./out/test/runTest.js"
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "test": "node ./out/test/runTest.js",
+    "lint": "rome check .",
+    "format": "rome format .",
+    "lint:fix": "rome check --apply .",
+    "lint:fix-suggested": "rome check --apply-suggested .",
+    "format:fix": "rome format --write ."
   },
   "dependencies": {
     "vscode-languageclient": "^7.0.0"
   },
   "devDependencies": {
-    "@types/vscode": "^1.74.0",
     "@types/glob": "^8.0.0",
     "@types/mocha": "^10.0.1",
     "@types/node": "18.x",
+    "@types/vscode": "^1.74.0",
+    "@vscode/test-electron": "^2.2.1",
     "glob": "^8.0.3",
     "mocha": "^10.2.0",
-    "typescript": "^4.9.4",
+    "rome": "^10.0.1",
     "ts-loader": "^9.4.2",
+    "typescript": "^4.9.4",
     "webpack": "^5.75.0",
-    "webpack-cli": "^5.0.1",
-    "@vscode/test-electron": "^2.2.1"
+    "webpack-cli": "^5.0.1"
   }
 }
