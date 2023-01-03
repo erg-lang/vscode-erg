@@ -1,4 +1,4 @@
-import { LanguageClientOptions } from "vscode-languageclient";
+// import { LanguageClientOptions } from "vscode-languageclient";
 import { ExtensionContext, window } from "vscode";
 import { LanguageClient, ServerOptions } from "vscode-languageclient/node";
 
