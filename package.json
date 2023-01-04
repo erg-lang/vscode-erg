@@ -20,6 +20,13 @@
 		"onLanguage:erg"
 	],
 	"contributes": {
+		"commands": [
+			{
+				"title": "Restart Language Server",
+				"category": "Erg",
+				"command": "erg.restartLanguageServer"
+			}
+		],
 		"languages": [
 			{
 				"id": "erg",
