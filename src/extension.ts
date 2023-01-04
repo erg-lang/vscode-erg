@@ -13,7 +13,6 @@ async function startLanguageClient(context: ExtensionContext) {
 		const buildFeatures = spawn("erg", ["--build-features"]);
 		let result = "";
 		for await (const chunk of buildFeatures.stdout) {
-			console.log(chunk);
 			result += chunk;
 		}
 		let serverOptions: ServerOptions;
