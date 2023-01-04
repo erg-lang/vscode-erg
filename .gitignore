@@ -1,3 +1,6 @@
 *.vsix
 node_modules
 example.er
+/dist/
+/out/
+/.vscode-test/
