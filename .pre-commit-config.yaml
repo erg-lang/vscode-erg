@@ -1,0 +1,14 @@
+repos:
+  - repo: local
+    hooks:
+      - id: npx-lint
+        name: npx-lint
+        entry: npx lint-staged
+        language: system
+        pass_filenames: false
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.3.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-merge-conflict
