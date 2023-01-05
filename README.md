@@ -6,7 +6,7 @@ This extension provides syntax highlighting and basic supports (diagnostics & co
 
 ## Requirements
 
-You need to have the [Erg language server](https://github.com/erg-lang/erg/blob/main/compiler/els/README.md) installed on your system.
+You need to have the [Erg language server](https://github.com/erg-lang/erg/tree/main/compiler/els#readme) installed on your system.
 
 To install it, run the following command:
 
