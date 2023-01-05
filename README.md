@@ -6,14 +6,10 @@ This extension provides syntax highlighting and basic supports (diagnostics & co
 
 ## Requirements
 
-You need to have the [Erg language server](https://github.com/erg-lang/erg-language-server) installed on your system.
+You need to have the [Erg language server](https://github.com/erg-lang/erg/blob/main/compiler/els/README.md) installed on your system.
 
 To install it, run the following command:
 
-```console
-cargo install els
-```
-Install with Erg: 
 ```console
 cargo install erg --features els
 ```
