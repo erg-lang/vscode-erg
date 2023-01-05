@@ -13,3 +13,7 @@ To install it, run the following command:
 ```console
 cargo install els
 ```
+Install with Erg: 
+```console
+cargo install erg --features els
+```
