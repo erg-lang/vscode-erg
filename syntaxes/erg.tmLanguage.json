@@ -538,6 +538,30 @@
 					]
 				},
 				{
+					"begin": "'''",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.multiline.begin.erg"
+						}
+					},
+					"end": "'''",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.multiline.end.erg"
+						}
+					},
+					"name": "string.quoted.triple.single.erg",
+					"comment": "multi-line string with triple single quotes",
+					"patterns": [
+						{
+							"include": "#interpolated"
+						},
+						{
+							"include": "#string_escaped_char"
+						}
+					]
+				},
+				{
 					"name": "string.quoted.double.erg",
 					"begin": "\"(?!\"\")",
 					"beginCaptures": {
@@ -552,6 +576,30 @@
 						}
 					},
 					"comment": "String with single pair of double quotes. Regex matches isolated double quote",
+					"patterns": [
+						{
+							"include": "#interpolated"
+						},
+						{
+							"include": "#string_escaped_char"
+						}
+					]
+				},
+				{
+					"name": "string.quoted.single.erg",
+					"begin": "'(?!'')",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.begin.erg"
+						}
+					},
+					"end": "'",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.end.erg"
+						}
+					},
+					"comment": "String with single pair of single quotes. Regex matches isolated single quote",
 					"patterns": [
 						{
 							"include": "#interpolated"
