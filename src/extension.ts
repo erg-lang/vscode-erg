@@ -36,7 +36,7 @@ async function startLanguageClient(context: ExtensionContext) {
 			],
 		};
 		client = new LanguageClient("els", serverOptions, clientOptions);
-		context.subscriptions.push(client.start());
+		await client.start();
 	} catch (e) {
 		window.showErrorMessage(
 			"Failed to start ELS (Erg Language Server). Please make sure you have erg (built with `els` feature) or els installed.",
