@@ -8,8 +8,6 @@ This extension provides syntax highlighting and basic supports (diagnostics & co
 
 You need to have the [Erg language server](https://github.com/erg-lang/erg/tree/main/compiler/els#readme) installed on your system.
 
-To install it, run the following command:
+To install it, you need to install or build Erg with `--features els`
 
-```console
-cargo install erg --features els
-```
+Building from source code is recommended if you want to have the latest complete ELS experience
