@@ -1,4 +1,4 @@
-import { ExtensionContext, commands, window } from "vscode";
+import { ExtensionContext, commands, window, workspace } from "vscode";
 import {
 	LanguageClient,
 	LanguageClientOptions,
@@ -10,15 +10,24 @@ let client: LanguageClient | undefined;
 
 async function startLanguageClient(context: ExtensionContext) {
 	try {
-		const buildFeatures = spawn("erg", ["--build-features"]);
-		let result = "";
-		for await (const chunk of buildFeatures.stdout) {
-			result += chunk;
-		}
+		const executablePath = (() => {
+			let executablePath = workspace
+				.getConfiguration("vscode-erg")
+				.get<string>("executablePath", "");
+			return executablePath === "" ? "erg" : executablePath;
+		})();
+		const buildFeatures = await (async () => {
+			const buildFeaturesProcess = spawn(executablePath, ["--build-features"]);
+			let buildFeatures = "";
+			for await (const chunk of buildFeaturesProcess.stdout) {
+				buildFeatures += chunk;
+			}
+			return buildFeatures;
+		})();
 		let serverOptions: ServerOptions;
-		if (result.includes("els")) {
+		if (buildFeatures.includes("els")) {
 			serverOptions = {
-				command: "erg",
+				command: executablePath,
 				args: ["--language-server"],
 			};
 		} else {
@@ -44,20 +53,21 @@ async function startLanguageClient(context: ExtensionContext) {
 	}
 }
 
-async function restartLanguageClient(context: ExtensionContext) {
-	if (client === undefined) {
+async function restartLanguageClient() {
+	try {
+		if (client === undefined) {
+			throw new Error();
+		}
+		await client.restart();
+	} catch (e) {
 		window.showErrorMessage("Failed to restart ELS (Erg Language Server).");
-		return;
 	}
-	await client.stop();
-	client.outputChannel.dispose();
-	await startLanguageClient(context);
 }
 
 export async function activate(context: ExtensionContext) {
 	context.subscriptions.push(
 		commands.registerCommand("erg.restartLanguageServer", () =>
-			restartLanguageClient(context),
+			restartLanguageClient(),
 		),
 	);
 	await startLanguageClient(context);
