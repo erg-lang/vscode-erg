@@ -3,7 +3,7 @@
 	"displayName": "vscode-erg",
 	"description": "Erg language support for Visual Studio Code",
 	"publisher": "erg-lang",
-	"version": "0.1.9",
+	"version": "0.1.10",
 	"engines": {
 		"vscode": "^1.70.0"
 	},
@@ -61,10 +61,20 @@
 					"default": "",
 					"description": "Path to `erg` executable"
 				},
-				"vscode-erg.lsp.inlayhints": {
+				"vscode-erg.lsp.inlayHints": {
 					"type": "boolean",
 					"default": true,
 					"description": "Enable inlay hints"
+				},
+				"vscode-erg.lsp.semanticTokens": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable semantic tokens"
+				},
+				"vscode-erg.lsp.hover": {
+					"type": "boolean",
+					"default": true,
+					"description": "Enable hover"
 				}
 			}
 		}

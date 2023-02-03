@@ -16,6 +16,9 @@ async function startLanguageClient(context: ExtensionContext) {
 				.get<string>("executablePath", "");
 			return executablePath === "" ? "erg" : executablePath;
 		})();
+		const enableInlayHints = workspace.getConfiguration("vscode-erg").get<boolean>("lsp.inlayHints", true);
+		const enableSemanticTokens = workspace.getConfiguration("vscode-erg").get<boolean>("lsp.semanticTokens", true);
+		const enableHover = workspace.getConfiguration("vscode-erg").get<boolean>("lsp.hover", true);
 		const buildFeatures = await (async () => {
 			const buildFeaturesProcess = spawn(executablePath, ["--build-features"]);
 			let buildFeatures = "";
@@ -25,10 +28,26 @@ async function startLanguageClient(context: ExtensionContext) {
 			return buildFeatures;
 		})();
 		let serverOptions: ServerOptions;
+		let args = ["--language-server"];
+		if (!(enableInlayHints && enableSemanticTokens && enableHover)) {
+			args.push("--");
+		}
+		if (!enableInlayHints) {
+			args.push("--disable");
+			args.push("inlayHints");
+		}
+		if (!enableSemanticTokens) {
+			args.push("--disable");
+			args.push("semanticTokens");
+		}
+		if (!enableHover) {
+			args.push("--disable");
+			args.push("hover");
+		}
 		if (buildFeatures.includes("els")) {
 			serverOptions = {
 				command: executablePath,
-				args: ["--language-server"],
+				args,
 			};
 		} else {
 			serverOptions = {
