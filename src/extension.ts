@@ -5,6 +5,7 @@ import {
 	ServerOptions,
 } from "vscode-languageclient/node";
 import { spawn } from "child_process";
+import { showReferences } from "./commands";
 
 let client: LanguageClient | undefined;
 
@@ -85,9 +86,12 @@ async function restartLanguageClient() {
 
 export async function activate(context: ExtensionContext) {
 	context.subscriptions.push(
-		commands.registerCommand("erg.restartLanguageServer", () =>
-			restartLanguageClient(),
-		),
+		commands.registerCommand("erg.restartLanguageServer", () => restartLanguageClient())
+	);
+	context.subscriptions.push(
+		commands.registerCommand("erg.showReferences", async (uri, position, locations) => {
+			await showReferences(client, uri, position, locations)
+		})
 	);
 	await startLanguageClient(context);
 }
