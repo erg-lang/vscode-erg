@@ -3,7 +3,7 @@
 	"displayName": "vscode-erg",
 	"description": "Erg language support for Visual Studio Code",
 	"publisher": "erg-lang",
-	"version": "0.1.11",
+	"version": "0.1.12",
 	"engines": {
 		"vscode": "^1.70.0"
 	},
@@ -54,27 +54,37 @@
 				"vscode-erg.ergpath.path": {
 					"type": "string",
 					"default": "",
-					"description": "Path to `.erg` directory"
+					"markdownDescription": "Path to `.erg` directory"
 				},
 				"vscode-erg.executablePath": {
 					"type": "string",
 					"default": "",
-					"description": "Path to `erg` executable"
+					"markdownDescription": "Path to `erg` executable"
 				},
 				"vscode-erg.lsp.inlayHints": {
 					"type": "boolean",
 					"default": true,
-					"description": "Enable inlay hints"
+					"markdownDescription": "Enable inlay hints"
 				},
 				"vscode-erg.lsp.semanticTokens": {
 					"type": "boolean",
 					"default": true,
-					"description": "Enable semantic tokens"
+					"markdownDescription": "Enable semantic tokens"
 				},
 				"vscode-erg.lsp.hover": {
 					"type": "boolean",
 					"default": true,
-					"description": "Enable hover"
+					"markdownDescription": "Enable hover"
+				},
+				"vscode-erg.lsp.smartCompletion": {
+					"type": "boolean",
+					"default": true,
+					"markdownDescription": "Enable smart completion (see [ELS features](https://github.com/erg-lang/erg/blob/main/crates/els/doc/features.md))"
+				},
+				"vscode-erg.lsp.checkOnType": {
+					"type": "boolean",
+					"default": false,
+					"markdownDescription": "Perform checking each time any character is entered. This improves the accuracy of completion, etc., but may slow down the execution of ELS"
 				}
 			}
 		}
