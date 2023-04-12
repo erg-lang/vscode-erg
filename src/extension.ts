@@ -81,6 +81,7 @@ async function startLanguageClient(context: ExtensionContext) {
 		window.showErrorMessage(
 			"Failed to start ELS (Erg Language Server). Please make sure you have erg (built with `els` feature) or els installed.",
 		);
+		window.showErrorMessage(`${e}`);
 	}
 }
 
@@ -92,6 +93,7 @@ async function restartLanguageClient() {
 		await client.restart();
 	} catch (e) {
 		window.showErrorMessage("Failed to restart ELS (Erg Language Server).");
+		window.showErrorMessage(`${e}`);
 	}
 }
 
