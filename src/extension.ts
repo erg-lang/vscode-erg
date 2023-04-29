@@ -31,10 +31,7 @@ async function startLanguageClient(context: ExtensionContext) {
 		const smartCompletion = workspace.getConfiguration("vscode-erg").get<boolean>("lsp.smartCompletion", true);
 		/* optional features */
 		const checkOnType = workspace.getConfiguration("vscode-erg").get<boolean>("lsp.checkOnType", false);
-		let args = ["--language-server"];
-		if (!(enableInlayHints && enableSemanticTokens && enableHover && smartCompletion) || checkOnType) {
-			args.push("--");
-		}
+		let args = ["--language-server", "--"];
 		if (!enableInlayHints) {
 			args.push("--disable");
 			args.push("inlayHints");

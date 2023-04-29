@@ -376,7 +376,7 @@
 					"name": "keyword.operator.vector.erg"
 				},
 				{
-					"match": "(?: is | isnot | in | notin )",
+					"match": "(?: is | isnot | in | notin | as )",
 					"name": "keyword.operator.other.erg"
 				},
 				{
