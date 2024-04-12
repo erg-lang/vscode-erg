@@ -3,7 +3,7 @@
 	"displayName": "vscode-erg",
 	"description": "Erg language support for Visual Studio Code",
 	"publisher": "erg-lang",
-	"version": "0.1.14",
+	"version": "0.1.15",
 	"engines": {
 		"vscode": "^1.70.0"
 	},
@@ -85,6 +85,11 @@
 					"type": "boolean",
 					"default": false,
 					"markdownDescription": "Perform checking each time any character is entered. This improves the accuracy of completion, etc., but may slow down the execution of ELS"
+				},
+				"vscode-erg.lsp.lint": {
+					"type": "boolean",
+					"default": false,
+					"markdownDescription": "Enable lint"
 				}
 			}
 		}

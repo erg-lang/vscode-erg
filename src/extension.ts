@@ -31,6 +31,7 @@ async function startLanguageClient(context: ExtensionContext) {
 		const smartCompletion = workspace.getConfiguration("vscode-erg").get<boolean>("lsp.smartCompletion", true);
 		/* optional features */
 		const checkOnType = workspace.getConfiguration("vscode-erg").get<boolean>("lsp.checkOnType", false);
+		const lint = workspace.getConfiguration("vscode-erg").get<boolean>("lsp.lint", false);
 		let args = ["--language-server", "--"];
 		if (!enableInlayHints) {
 			args.push("--disable");
@@ -51,6 +52,10 @@ async function startLanguageClient(context: ExtensionContext) {
 		if (checkOnType) {
 			args.push("--enable");
 			args.push("checkOnType");
+		}
+		if (lint) {
+			args.push("--enable");
+			args.push("lint");
 		}
 		let serverOptions: ServerOptions;
 		if (buildFeatures.includes("els")) {

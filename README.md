@@ -11,3 +11,11 @@ You need to have the [Erg language server](https://github.com/erg-lang/erg/tree/
 To install it, you need to install or build Erg with `--features els`
 
 Building from source code is recommended if you want to have the latest complete ELS experience
+
+## How to build (for contributors)
+
+```sh
+npm install -g vsce
+npm install
+npx vsce package
+```
