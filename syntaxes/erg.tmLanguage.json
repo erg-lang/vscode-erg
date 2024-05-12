@@ -558,6 +558,9 @@
 						},
 						{
 							"include": "#string_escaped_char"
+						},
+						{
+							"include": "text.html.markdown"
 						}
 					]
 				},
