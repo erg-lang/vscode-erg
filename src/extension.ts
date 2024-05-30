@@ -32,7 +32,7 @@ async function startLanguageClient(context: ExtensionContext) {
 		/* optional features */
 		const checkOnType = workspace.getConfiguration("vscode-erg").get<boolean>("lsp.checkOnType", false);
 		const lint = workspace.getConfiguration("vscode-erg").get<boolean>("lsp.lint", false);
-		let args = ["--language-server", "--"];
+		let args = ["language-server", "--"];
 		if (!enableInlayHints) {
 			args.push("--disable");
 			args.push("inlayHints");
