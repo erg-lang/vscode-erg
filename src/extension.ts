@@ -6,6 +6,7 @@ import {
 } from "vscode-languageclient/node";
 import { spawn } from "child_process";
 import { showReferences } from "./commands";
+import { checkForUpdate } from "./update";
 
 let client: LanguageClient | undefined;
 
@@ -100,6 +101,10 @@ async function restartLanguageClient() {
 }
 
 export async function activate(context: ExtensionContext) {
+	const checkForUpdates = workspace.getConfiguration("vscode-erg").get<boolean>("checkForUpdates", true);
+	if (checkForUpdates) {
+		await checkForUpdate();
+	}
 	context.subscriptions.push(
 		commands.registerCommand("erg.restartLanguageServer", () => restartLanguageClient())
 	);

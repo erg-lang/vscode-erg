@@ -3,7 +3,7 @@
 	"displayName": "vscode-erg",
 	"description": "Erg language support for Visual Studio Code",
 	"publisher": "erg-lang",
-	"version": "0.1.16",
+	"version": "0.1.17",
 	"engines": {
 		"vscode": "^1.70.0"
 	},
@@ -61,6 +61,11 @@
 					"default": "",
 					"markdownDescription": "Path to `erg` executable"
 				},
+				"vscode-erg.checkForUpdates": {
+					"type": "boolean",
+					"default": true,
+					"markdownDescription": "Check for updates on startup"
+				},
 				"vscode-erg.lsp.inlayHints": {
 					"type": "boolean",
 					"default": true,
@@ -89,7 +94,7 @@
 				"vscode-erg.lsp.lint": {
 					"type": "boolean",
 					"default": false,
-					"markdownDescription": "Enable lint"
+					"markdownDescription": "Enable linting"
 				}
 			}
 		}
@@ -113,7 +118,8 @@
 		"format:fix": "rome format --write ."
 	},
 	"dependencies": {
-		"vscode-languageclient": "^8.0.2"
+		"vscode-languageclient": "^8.0.2",
+		"compare-versions": "^6.1.0"
 	},
 	"devDependencies": {
 		"@types/glob": "^8.0.0",
