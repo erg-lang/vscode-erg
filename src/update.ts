@@ -1,5 +1,5 @@
 import { window, workspace } from "vscode";
-import { spawn } from "child_process";
+import { spawn } from "node:child_process";
 import { compare } from "compare-versions";
 
 async function currentErgVersion() {
@@ -37,7 +37,7 @@ async function latestErgVersion(): Promise<string | undefined> {
 	if (versionProcess.exitCode !== 0) {
 		return undefined;
 	}
-	return JSON.parse(version)["tag_name"];
+	return JSON.parse(version).tag_name;
 }
 
 export async function checkForUpdate() {

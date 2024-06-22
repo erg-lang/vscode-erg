@@ -4,7 +4,7 @@ import {
 	type LanguageClientOptions,
 	type ServerOptions,
 } from "vscode-languageclient/node";
-import { spawn } from "child_process";
+import { spawn } from "node:child_process";
 import { showReferences } from "./commands";
 import { checkForUpdate } from "./update";
 

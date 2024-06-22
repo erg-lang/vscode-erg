@@ -1,6 +1,4 @@
-
-
-const path = require("path");
+const path = require("node:path");
 
 //@ts-check
 /** @typedef {import('webpack').Configuration} WebpackConfig **/
