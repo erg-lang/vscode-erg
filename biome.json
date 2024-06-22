@@ -1,11 +1,15 @@
 {
-	"linter": {
-		"rules": {
-			"recommended": true
-		},
-		"ignore": ["/dist/", "/out/", "/.vscode-test/"]
+	"$schema": "node_modules/@biomejs/biome/configuration_schema.json",
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true
 	},
-	"formatter": {
-		"ignore": ["/dist/", "/out/", "/.vscode-test/"]
-	}
+	"linter": {
+		"enabled": true,
+		"rules": { "recommended": true },
+		"ignore": [".vscode"]
+	},
+	"formatter": { "enabled": true, "ignore": [".vscode"] },
+	"organizeImports": { "enabled": false }
 }
