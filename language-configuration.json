@@ -1,48 +1,44 @@
 // guide: https://code.visualstudio.com/api/language-extensions/language-configuration-guide
 {
-    "comments": {
-        "lineComment": "#",
-        "blockComment": ["#[", "]#"]
-    },
-    "brackets": [
-        ["{", "}"],
-        ["[", "]"],
-        ["(", ")"]
-    ],
-    "autoClosingPairs": [
-        { "open": "{", "close": "}" },
-        { "open": "[", "close": "]" },
-        { "open": "(", "close": ")" },
-        { "open": "'", "close": "'", "notIn": ["string", "comment"] },
-        { "open": "\"", "close": "\"", "notIn": ["string"] },
-        { "open": "#[", "close": "]#", "notIn": ["string"] }
-    ],
-    "surroundingPairs": [
-        ["{", "}"],
-        ["[", "]"],
-        ["(", ")"],
-        ["'", "'"],
-        ["\"", "\""],
-        ["|", "|"]
-    ],
-    "onEnterRules": [
-        {
-            // indent at `:`, `=`, `->`, `=>`, `.`, `\`
-            "beforeText": "^\\s*.*?(?::|=|->|=>|\\.|\\\\)\\s*$",
-            "action": { "indent": "indent" }
-        },
-        {
-            // e.g. `#[|]#`, `#[|` (`|` is the cursor)
-            "beforeText": {
-                "pattern": "^\\s*.*#\\[.*$"
-            },
-            // If this is present, it is indented. e.g. `#[|`
-            // "afterText": {
-            // 	"pattern": "^\\s*.*\\]#.*$"
-            // },
-            "action": {
-                "indent": "none"
-            }
-        }
-    ]
+	"comments": {
+		"lineComment": "#",
+		"blockComment": ["#[", "]#"]
+	},
+	"brackets": [["{", "}"], ["[", "]"], ["(", ")"]],
+	"autoClosingPairs": [
+		{ "open": "{", "close": "}" },
+		{ "open": "[", "close": "]" },
+		{ "open": "(", "close": ")" },
+		{ "open": "'", "close": "'", "notIn": ["string", "comment"] },
+		{ "open": "\"", "close": "\"", "notIn": ["string"] },
+		{ "open": "#[", "close": "]#", "notIn": ["string"] }
+	],
+	"surroundingPairs": [
+		["{", "}"],
+		["[", "]"],
+		["(", ")"],
+		["'", "'"],
+		["\"", "\""],
+		["|", "|"]
+	],
+	"onEnterRules": [
+		{
+			// indent at `:`, `=`, `->`, `=>`, `.`, `\`
+			"beforeText": "^\\s*.*?(?::|=|->|=>|\\.|\\\\)\\s*$",
+			"action": { "indent": "indent" }
+		},
+		{
+			// e.g. `#[|]#`, `#[|` (`|` is the cursor)
+			"beforeText": {
+				"pattern": "^\\s*.*#\\[.*$"
+			},
+			// If this is present, it is indented. e.g. `#[|`
+			// "afterText": {
+			// 	"pattern": "^\\s*.*\\]#.*$"
+			// },
+			"action": {
+				"indent": "none"
+			}
+		}
+	]
 }

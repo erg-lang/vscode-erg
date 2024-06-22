@@ -48,14 +48,18 @@ export async function checkForUpdate() {
 		return;
 	}
 	if (currentVersion === undefined) {
-		let selection = await window.showInformationMessage("Erg is not installed.", "Install");
+		let selection = await window.showInformationMessage(
+			"Erg is not installed.",
+			"Install",
+		);
 		if (selection === "Install") {
 			await updateToolchain();
 		}
 	} else if (compare(currentVersion, latestVersion, "<")) {
 		let selection = await window.showInformationMessage(
 			`A new version of Erg is available. Current version: ${currentVersion}, Latest version: ${latestVersion}`,
-			"Update", "Not now",
+			"Update",
+			"Not now",
 		);
 		if (selection === "Update") {
 			await updateToolchain();
@@ -74,6 +78,8 @@ async function updateToolchain() {
 			}
 		});
 	});
-	terminal.sendText("echo y | python3 <(curl -L https://github.com/mtshiba/ergup/raw/main/ergup.py) && exit");
+	terminal.sendText(
+		"echo y | python3 <(curl -L https://github.com/mtshiba/ergup/raw/main/ergup.py) && exit",
+	);
 	await result;
 }

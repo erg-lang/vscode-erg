@@ -26,13 +26,25 @@ async function startLanguageClient(context: ExtensionContext) {
 			}
 			return buildFeatures;
 		})();
-		const enableInlayHints = workspace.getConfiguration("vscode-erg").get<boolean>("lsp.inlayHints", true);
-		const enableSemanticTokens = workspace.getConfiguration("vscode-erg").get<boolean>("lsp.semanticTokens", true);
-		const enableHover = workspace.getConfiguration("vscode-erg").get<boolean>("lsp.hover", true);
-		const smartCompletion = workspace.getConfiguration("vscode-erg").get<boolean>("lsp.smartCompletion", true);
+		const enableInlayHints = workspace
+			.getConfiguration("vscode-erg")
+			.get<boolean>("lsp.inlayHints", true);
+		const enableSemanticTokens = workspace
+			.getConfiguration("vscode-erg")
+			.get<boolean>("lsp.semanticTokens", true);
+		const enableHover = workspace
+			.getConfiguration("vscode-erg")
+			.get<boolean>("lsp.hover", true);
+		const smartCompletion = workspace
+			.getConfiguration("vscode-erg")
+			.get<boolean>("lsp.smartCompletion", true);
 		/* optional features */
-		const checkOnType = workspace.getConfiguration("vscode-erg").get<boolean>("lsp.checkOnType", false);
-		const lint = workspace.getConfiguration("vscode-erg").get<boolean>("lsp.lint", false);
+		const checkOnType = workspace
+			.getConfiguration("vscode-erg")
+			.get<boolean>("lsp.checkOnType", false);
+		const lint = workspace
+			.getConfiguration("vscode-erg")
+			.get<boolean>("lsp.lint", false);
 		let args = ["language-server", "--"];
 		if (!enableInlayHints) {
 			args.push("--disable");
@@ -101,17 +113,24 @@ async function restartLanguageClient() {
 }
 
 export async function activate(context: ExtensionContext) {
-	const checkForUpdates = workspace.getConfiguration("vscode-erg").get<boolean>("checkForUpdates", true);
+	const checkForUpdates = workspace
+		.getConfiguration("vscode-erg")
+		.get<boolean>("checkForUpdates", true);
 	if (checkForUpdates) {
 		await checkForUpdate();
 	}
 	context.subscriptions.push(
-		commands.registerCommand("erg.restartLanguageServer", () => restartLanguageClient())
+		commands.registerCommand("erg.restartLanguageServer", () =>
+			restartLanguageClient(),
+		),
 	);
 	context.subscriptions.push(
-		commands.registerCommand("erg.showReferences", async (uri, position, locations) => {
-			await showReferences(client, uri, position, locations)
-		})
+		commands.registerCommand(
+			"erg.showReferences",
+			async (uri, position, locations) => {
+				await showReferences(client, uri, position, locations);
+			},
+		),
 	);
 	await startLanguageClient(context);
 }
