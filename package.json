@@ -104,8 +104,8 @@
 		"type-check": "tsc --noEmit",
 		"lint": "biome check .",
 		"format": "biome format .",
-		"lint:fix": "biome check --write .",
-		"lint:fix-suggested": "biome check --write .",
+		"lint:fix": "biome lint --write .",
+		"lint:fix-unsafe": "biome lint --write --unsafe .",
 		"format:fix": "biome format --write ."
 	},
 	"dependencies": {

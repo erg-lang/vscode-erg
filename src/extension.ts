@@ -1,8 +1,8 @@
-import { ExtensionContext, commands, window, workspace } from "vscode";
+import { type ExtensionContext, commands, window, workspace } from "vscode";
 import {
 	LanguageClient,
-	LanguageClientOptions,
-	ServerOptions,
+	type LanguageClientOptions,
+	type ServerOptions,
 } from "vscode-languageclient/node";
 import { spawn } from "child_process";
 import { showReferences } from "./commands";
@@ -13,7 +13,7 @@ let client: LanguageClient | undefined;
 async function startLanguageClient(context: ExtensionContext) {
 	try {
 		const executablePath = (() => {
-			let executablePath = workspace
+			const executablePath = workspace
 				.getConfiguration("vscode-erg")
 				.get<string>("executablePath", "");
 			return executablePath === "" ? "erg" : executablePath;
@@ -45,7 +45,7 @@ async function startLanguageClient(context: ExtensionContext) {
 		const lint = workspace
 			.getConfiguration("vscode-erg")
 			.get<boolean>("lsp.lint", false);
-		let args = ["language-server", "--"];
+		const args = ["language-server", "--"];
 		if (!enableInlayHints) {
 			args.push("--disable");
 			args.push("inlayHints");

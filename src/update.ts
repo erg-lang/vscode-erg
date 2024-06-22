@@ -5,7 +5,7 @@ import { compare } from "compare-versions";
 async function currentErgVersion() {
 	let version = "";
 	const executablePath = (() => {
-		let executablePath = workspace
+		const executablePath = workspace
 			.getConfiguration("vscode-erg")
 			.get<string>("executablePath", "");
 		return executablePath === "" ? "erg" : executablePath;
@@ -48,7 +48,7 @@ export async function checkForUpdate() {
 		return;
 	}
 	if (currentVersion === undefined) {
-		let selection = await window.showInformationMessage(
+		const selection = await window.showInformationMessage(
 			"Erg is not installed.",
 			"Install",
 		);
@@ -56,7 +56,7 @@ export async function checkForUpdate() {
 			await updateToolchain();
 		}
 	} else if (compare(currentVersion, latestVersion, "<")) {
-		let selection = await window.showInformationMessage(
+		const selection = await window.showInformationMessage(
 			`A new version of Erg is available. Current version: ${currentVersion}, Latest version: ${latestVersion}`,
 			"Update",
 			"Not now",
@@ -71,7 +71,7 @@ async function updateToolchain() {
 	const terminal = window.createTerminal("Erg Update");
 	terminal.show(true);
 	setTimeout(() => {}, 500);
-	let result = new Promise((resolve) => {
+	const result = new Promise((resolve) => {
 		window.onDidCloseTerminal((t) => {
 			if (t === terminal) {
 				resolve(true);

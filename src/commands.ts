@@ -1,5 +1,5 @@
 // copied and modified from https://github.com/rust-lang/rust-analyzer/blob/27239fbb58a115915ffc1ce65ededc951eb00fd2/editors/code/src/commands.ts
-import { LanguageClient, Location, Position } from "vscode-languageclient/node";
+import type { LanguageClient, Location, Position } from "vscode-languageclient/node";
 import { Uri, commands } from "vscode";
 
 export async function showReferences(
