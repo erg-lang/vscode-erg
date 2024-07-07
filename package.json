@@ -3,7 +3,7 @@
 	"displayName": "vscode-erg",
 	"description": "Erg language support for Visual Studio Code",
 	"publisher": "erg-lang",
-	"version": "0.1.17",
+	"version": "0.1.18",
 	"engines": {
 		"vscode": "^1.70.0"
 	},
@@ -14,7 +14,11 @@
 		"url": "https://github.com/erg-lang/vscode-erg.git"
 	},
 	"main": "./dist/extension.js",
-	"activationEvents": ["onLanguage:erg"],
+	"activationEvents": [
+		"workspaceContains:package.er",
+		"workspaceContains:*/package.er",
+		"onLanguage:erg"
+	],
 	"contributes": {
 		"commands": [
 			{
