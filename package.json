@@ -3,7 +3,7 @@
 	"displayName": "vscode-erg",
 	"description": "Erg language support for Visual Studio Code",
 	"publisher": "erg-lang",
-	"version": "0.1.18",
+	"version": "0.1.19",
 	"engines": {
 		"vscode": "^1.70.0"
 	},
@@ -61,6 +61,11 @@
 					"default": true,
 					"markdownDescription": "Check for updates on startup"
 				},
+				"vscode-erg.lsp.diagnostics": {
+					"type": "boolean",
+					"default": true,
+					"markdownDescription": "Enable diagnostics"
+				},
 				"vscode-erg.lsp.inlayHints": {
 					"type": "boolean",
 					"default": true,
@@ -75,6 +80,41 @@
 					"type": "boolean",
 					"default": true,
 					"markdownDescription": "Enable hover"
+				},
+				"vscode-erg.lsp.completion": {
+					"type": "boolean",
+					"default": true,
+					"markdownDescription": "Enable completion"
+				},
+				"vscode-erg.lsp.codeAction": {
+					"type": "boolean",
+					"default": true,
+					"markdownDescription": "Enable code action"
+				},
+				"vscode-erg.lsp.codeLens": {
+					"type": "boolean",
+					"default": true,
+					"markdownDescription": "Enable code lens"
+				},
+				"vscode-erg.lsp.signatureHelp": {
+					"type": "boolean",
+					"default": true,
+					"markdownDescription": "Enable signature help"
+				},
+				"vscode-erg.lsp.documentHighlight": {
+					"type": "boolean",
+					"default": true,
+					"markdownDescription": "Enable document highlight"
+				},
+				"vscode-erg.lsp.documentLink": {
+					"type": "boolean",
+					"default": true,
+					"markdownDescription": "Enable document link"
+				},
+				"vscode-erg.lsp.selectionRange": {
+					"type": "boolean",
+					"default": true,
+					"markdownDescription": "Enable selection range"
 				},
 				"vscode-erg.lsp.smartCompletion": {
 					"type": "boolean",

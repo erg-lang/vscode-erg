@@ -26,6 +26,9 @@ async function startLanguageClient(context: ExtensionContext) {
 			}
 			return buildFeatures;
 		})();
+		const enableDiagnostics = workspace
+			.getConfiguration("vscode-erg")
+			.get<boolean>("lsp.diagnostics", true);
 		const enableInlayHints = workspace
 			.getConfiguration("vscode-erg")
 			.get<boolean>("lsp.inlayHints", true);
@@ -35,6 +38,27 @@ async function startLanguageClient(context: ExtensionContext) {
 		const enableHover = workspace
 			.getConfiguration("vscode-erg")
 			.get<boolean>("lsp.hover", true);
+		const enableCompletion = workspace
+			.getConfiguration("vscode-erg")
+			.get<boolean>("lsp.completion", true);
+		const enableCodeAction = workspace
+			.getConfiguration("vscode-erg")
+			.get<boolean>("lsp.codeAction", true);
+		const enableCodeLens = workspace
+			.getConfiguration("vscode-erg")
+			.get<boolean>("lsp.codeLens", true);
+		const enableSignatureHelp = workspace
+			.getConfiguration("vscode-erg")
+			.get<boolean>("lsp.signatureHelp", true);
+		const enableDocumentHighlight = workspace
+			.getConfiguration("vscode-erg")
+			.get<boolean>("lsp.documentHighlight", true);
+		const enableDocumentLink = workspace
+			.getConfiguration("vscode-erg")
+			.get<boolean>("lsp.documentLink", true);
+		const enableSelectionRange = workspace
+			.getConfiguration("vscode-erg")
+			.get<boolean>("lsp.selectionRange", true);
 		const smartCompletion = workspace
 			.getConfiguration("vscode-erg")
 			.get<boolean>("lsp.smartCompletion", true);
@@ -46,6 +70,10 @@ async function startLanguageClient(context: ExtensionContext) {
 			.getConfiguration("vscode-erg")
 			.get<boolean>("lsp.lint", false);
 		const args = ["language-server", "--"];
+		if (!enableDiagnostics) {
+			args.push("--disable");
+			args.push("diagnostics");
+		}
 		if (!enableInlayHints) {
 			args.push("--disable");
 			args.push("inlayHints");
@@ -57,6 +85,34 @@ async function startLanguageClient(context: ExtensionContext) {
 		if (!enableHover) {
 			args.push("--disable");
 			args.push("hover");
+		}
+		if (!enableCompletion) {
+			args.push("--disable");
+			args.push("completion");
+		}
+		if (!enableCodeAction) {
+			args.push("--disable");
+			args.push("codeAction");
+		}
+		if (!enableCodeLens) {
+			args.push("--disable");
+			args.push("codeLens");
+		}
+		if (!enableSignatureHelp) {
+			args.push("--disable");
+			args.push("signatureHelp");
+		}
+		if (!enableDocumentHighlight) {
+			args.push("--disable");
+			args.push("documentHighlight");
+		}
+		if (!enableDocumentLink) {
+			args.push("--disable");
+			args.push("documentLink");
+		}
+		if (!enableSelectionRange) {
+			args.push("--disable");
+			args.push("selectionRange");
 		}
 		if (!smartCompletion) {
 			args.push("--disable");
