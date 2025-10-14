@@ -79,7 +79,7 @@ async function updateToolchain() {
 		});
 	});
 	terminal.sendText(
-		"echo y | python3 <(curl -L https://github.com/mtshiba/ergup/raw/main/ergup.py) && exit",
+		"echo y | python3 <(curl -L https://raw.githubusercontent.com/mtshiba/ergup/refs/heads/main/ergup/ergup.py) && exit",
 	);
 	await result;
 }
